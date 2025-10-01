@@ -1,0 +1,32 @@
+import com.guicedee.guicedinjection.interfaces.IGuiceScanModuleInclusions;
+import com.jwebmp.core.services.IPageConfigurator;
+import com.jwebmp.plugins.aggridenterprise.AgGridEnterprisePageConfigurator;
+import com.jwebmp.plugins.aggridenterprise.implementations.AgGridEnterpriseModuleScanInclusion;
+
+module com.jwebmp.plugins.aggridenterprise {
+    exports com.jwebmp.plugins.aggridenterprise;
+    exports com.jwebmp.plugins.aggridenterprise.options;
+    exports com.jwebmp.plugins.aggridenterprise.options.find;
+    exports com.jwebmp.plugins.aggridenterprise.options.setfilter;
+    exports com.jwebmp.plugins.aggridenterprise.options.multifilter;
+    exports com.jwebmp.plugins.aggridenterprise.options.cellselection;
+
+    requires transitive com.jwebmp.plugins.aggrid;
+
+    requires com.jwebmp.client;
+    requires com.jwebmp.core;
+    requires com.jwebmp.core.angular;
+    requires com.guicedee.guicedinjection;
+    requires com.fasterxml.jackson.databind;
+    requires static lombok;
+
+    provides IPageConfigurator with AgGridEnterprisePageConfigurator;
+    provides IGuiceScanModuleInclusions with AgGridEnterpriseModuleScanInclusion;
+
+    opens com.jwebmp.plugins.aggridenterprise to com.google.guice, com.fasterxml.jackson.databind, com.jwebmp.core;
+    opens com.jwebmp.plugins.aggridenterprise.options to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice;
+    opens com.jwebmp.plugins.aggridenterprise.options.find to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice;
+    opens com.jwebmp.plugins.aggridenterprise.options.setfilter to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice;
+    opens com.jwebmp.plugins.aggridenterprise.options.multifilter to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice;
+    opens com.jwebmp.plugins.aggridenterprise.options.cellselection to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice;
+}

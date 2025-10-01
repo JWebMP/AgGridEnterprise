@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.jwebmp.plugins</groupId>
+  <artifactId>aggrid-enterprise</artifactId>
+  <version>2.0.0-SNAPSHOT</version>
+  <name>AG Grid Enterprise</name>
+  <description>JWebMP extension for AG Grid Enterprise features</description>
+  <url>https://jwebmp.com/aggrid-enterprise</url>
+  <licenses>
+    <license>
+      <name>GPL 3</name>
+      <url>https://www.gnu.org/licenses/gpl-3.0.en.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>GedMarc</id>
+      <name>Marc Magon</name>
+      <email>marc.magon@gmail.com</email>
+      <url>https://github.com/GedMarc</url>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:https://github.com/JWebMP/Plugins/AgGridEnterprise.git/parent/parent/aggrid-enterprise/parent/parent/aggrid-enterprise</connection>
+    <developerConnection>scm:git:https://github.com/JWebMP/Plugins/AgGridEnterprise.git/parent/parent/aggrid-enterprise/parent/parent/aggrid-enterprise</developerConnection>
+    <url>https://github.com/JWebMP/Plugins/AgGridEnterprise.git/parent/parent/aggrid-enterprise</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>com.jwebmp.core</groupId>
+      <artifactId>jwebmp-core</artifactId>
+      <version>2.0.0-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.jwebmp.plugins</groupId>
+      <artifactId>aggrid</artifactId>
+      <version>2.0.0-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.jwebmp.plugins</groupId>
+      <artifactId>typescript-client</artifactId>
+      <version>2.0.0-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.40</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+</project>
