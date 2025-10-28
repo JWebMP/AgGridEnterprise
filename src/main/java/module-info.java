@@ -20,13 +20,18 @@ module com.jwebmp.plugins.aggridenterprise {
     requires com.fasterxml.jackson.databind;
     requires static lombok;
 
+    requires org.mapstruct;
+
     provides IPageConfigurator with AgGridEnterprisePageConfigurator;
     provides IGuiceScanModuleInclusions with AgGridEnterpriseModuleScanInclusion;
 
-    opens com.jwebmp.plugins.aggridenterprise to com.google.guice, com.fasterxml.jackson.databind, com.jwebmp.core;
-    opens com.jwebmp.plugins.aggridenterprise.options to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice;
-    opens com.jwebmp.plugins.aggridenterprise.options.find to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice;
-    opens com.jwebmp.plugins.aggridenterprise.options.setfilter to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice;
-    opens com.jwebmp.plugins.aggridenterprise.options.multifilter to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice;
-    opens com.jwebmp.plugins.aggridenterprise.options.cellselection to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice;
+    //uses IPageConfigurator;
+
+    opens com.jwebmp.plugins.aggridenterprise to com.google.guice, com.fasterxml.jackson.databind, com.jwebmp.core, org.mapstruct;
+    opens com.jwebmp.plugins.aggridenterprise.options to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice, org.mapstruct;
+    opens com.jwebmp.plugins.aggridenterprise.options.mapping to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice, org.mapstruct;
+    opens com.jwebmp.plugins.aggridenterprise.options.find to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice, org.mapstruct;
+    opens com.jwebmp.plugins.aggridenterprise.options.setfilter to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice, org.mapstruct;
+    opens com.jwebmp.plugins.aggridenterprise.options.multifilter to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice, org.mapstruct;
+    opens com.jwebmp.plugins.aggridenterprise.options.cellselection to com.fasterxml.jackson.databind, com.jwebmp.core, com.google.guice, org.mapstruct;
 }

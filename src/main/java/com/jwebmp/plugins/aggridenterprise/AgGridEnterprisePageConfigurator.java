@@ -14,7 +14,7 @@ import lombok.Setter;
         pluginName = "AG Grid Enterprise",
         pluginUniqueName = "ag-grid-enterprise",
         pluginDescription = "AG Grid Enterprise extension for JWebMP providing integrated charts, row grouping, server-side row model and more.",
-        pluginVersion = "33.0.0",
+        pluginVersion = "34.2.0",
         pluginCategories = "grid, table, data, ui, web ui, enterprise",
         pluginSubtitle = "Enterprise features for AG Grid",
         pluginSourceUrl = "https://www.ag-grid.com/",
@@ -31,10 +31,11 @@ import lombok.Setter;
         pluginStatus = PluginStatus.Released
 )
 
-@TsDependency(value = "ag-grid-enterprise", version = "^33.0.0")
+@TsDependency(value = "ag-grid-enterprise", version = "^34.2.0")
+@TsDependency(value = "ag-charts-enterprise", version = "^12.2.0")
 @NgBootImportReference(value = "AllEnterpriseModule", reference = "ag-grid-enterprise")
 @NgBootImportReference(value = "ModuleRegistry", reference = "ag-grid-community")
-@NgBootConstructorBody("ModuleRegistry.registerModules([AllEnterpriseModule]);")
+@NgBootImportReference(value = "LicenseManager", reference = "ag-grid-enterprise")
 
 public class AgGridEnterprisePageConfigurator implements IPageConfigurator<AgGridEnterprisePageConfigurator>
 {
@@ -46,6 +47,36 @@ public class AgGridEnterprisePageConfigurator implements IPageConfigurator<AgGri
     public IPage<?> configure(IPage<?> page)
     {
         // Angular handles resource loading via dependencies
+        return page;
+    }
+
+    /**
+     * Configure the Angular-compiled index by injecting the AG Grid Enterprise license key into the window
+     * so the boot constructor can apply it via LicenseManager.
+     */
+    @Override
+    public IPage<?> configureAngular(IPage<?> page)
+    {
+        try
+        {
+            String key = AG_GRID_LICENSE_KEY;
+            if (key == null || key.isBlank())
+            {
+                key = System.getProperty("ag.grid.license", System.getenv("AG_GRID_LICENSE"));
+            }
+            if (key != null && !key.isBlank())
+            {
+                com.jwebmp.core.base.html.Script<?, ?> script = new com.jwebmp.core.base.html.Script<>()
+                        .setText("window.AG_GRID_LICENSE_KEY = '" + key.replace("\\", "\\\\")
+                                                                       .replace("'", "\\'") + "';");
+                page.getHead()
+                    .add(script);
+            }
+        }
+        catch (Throwable ignored)
+        {
+            // Do not fail Angular compilation due to license injection errors
+        }
         return page;
     }
 
