@@ -348,6 +348,17 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     }
 
     /**
+     * Provide an object literal for chartThemeOverrides as a raw TypeScript/JSON string.
+     * This is useful when you need to include formatter callbacks (functions) in overrides.
+     * Example: "{ common: { formatter: (p) => p.type==='number' ? '£'+p.value : undefined } }"
+     */
+    public J setChartThemeOverridesRaw(String rawLiteral)
+    {
+        this.chartThemeOverrides = rawLiteral == null ? null : new RawJsFunction(rawLiteral);
+        return (J) this;
+    }
+
+    /**
      * Get the chart tool panels definition.
      */
     public ChartToolPanelsDef getChartToolPanelsDef()
@@ -856,9 +867,42 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
         @JsonProperty("defaultToolPanel")
         private String defaultToolPanel;
 
+        @JsonProperty("settingsPanel")
+        private SettingsPanel settingsPanel;
+
+        @JsonProperty("dataPanel")
+        private DataPanel dataPanel;
+
+        @JsonProperty("formatPanel")
+        private FormatPanel formatPanel;
+        
         public java.util.List<String> getPanels()
         {
             return panels;
+        }
+
+        public SettingsPanel getSettingsPanel() {return settingsPanel;}
+
+        public ChartToolPanelsDef setSettingsPanel(SettingsPanel settingsPanel)
+        {
+            this.settingsPanel = settingsPanel;
+            return this;
+        }
+
+        public DataPanel getDataPanel() {return dataPanel;}
+
+        public ChartToolPanelsDef setDataPanel(DataPanel dataPanel)
+        {
+            this.dataPanel = dataPanel;
+            return this;
+        }
+
+        public FormatPanel getFormatPanel() {return formatPanel;}
+
+        public ChartToolPanelsDef setFormatPanel(FormatPanel formatPanel)
+        {
+            this.formatPanel = formatPanel;
+            return this;
         }
 
         /**
@@ -989,6 +1033,228 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
             {
                 this.icon = icon;
                 return this;
+            }
+        }
+
+        // ===== Nested panel configurations =====
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        public static class SettingsPanel
+        {
+            @JsonProperty("chartGroupsDef")
+            private ChartGroupsDef chartGroupsDef;
+
+            public ChartGroupsDef getChartGroupsDef() {return chartGroupsDef;}
+
+            public SettingsPanel setChartGroupsDef(ChartGroupsDef def)
+            {
+                this.chartGroupsDef = def;
+                return this;
+            }
+        }
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        public static class ChartGroupsDef
+        {
+            // Use string lists to keep flexible and aligned with AG Grid string keys
+            @JsonProperty("columnGroup")
+            private java.util.List<String> columnGroup;
+            @JsonProperty("barGroup")
+            private java.util.List<String> barGroup;
+            @JsonProperty("pieGroup")
+            private java.util.List<String> pieGroup;
+            @JsonProperty("lineGroup")
+            private java.util.List<String> lineGroup;
+            @JsonProperty("areaGroup")
+            private java.util.List<String> areaGroup;
+            @JsonProperty("scatterGroup")
+            private java.util.List<String> scatterGroup;
+            @JsonProperty("combinationGroup")
+            private java.util.List<String> combinationGroup;
+            @JsonProperty("polarGroup")
+            private java.util.List<String> polarGroup;
+            @JsonProperty("statisticalGroup")
+            private java.util.List<String> statisticalGroup;
+            @JsonProperty("hierarchicalGroup")
+            private java.util.List<String> hierarchicalGroup;
+            @JsonProperty("specializedGroup")
+            private java.util.List<String> specializedGroup;
+            @JsonProperty("funnelGroup")
+            private java.util.List<String> funnelGroup;
+
+            public java.util.List<String> getColumnGroup() {return columnGroup;}
+
+            public ChartGroupsDef setColumnGroup(java.util.List<String> v)
+            {
+                this.columnGroup = v;
+                return this;
+            }
+
+            public java.util.List<String> getBarGroup() {return barGroup;}
+
+            public ChartGroupsDef setBarGroup(java.util.List<String> v)
+            {
+                this.barGroup = v;
+                return this;
+            }
+
+            public java.util.List<String> getPieGroup() {return pieGroup;}
+
+            public ChartGroupsDef setPieGroup(java.util.List<String> v)
+            {
+                this.pieGroup = v;
+                return this;
+            }
+
+            public java.util.List<String> getLineGroup() {return lineGroup;}
+
+            public ChartGroupsDef setLineGroup(java.util.List<String> v)
+            {
+                this.lineGroup = v;
+                return this;
+            }
+
+            public java.util.List<String> getAreaGroup() {return areaGroup;}
+
+            public ChartGroupsDef setAreaGroup(java.util.List<String> v)
+            {
+                this.areaGroup = v;
+                return this;
+            }
+
+            public java.util.List<String> getScatterGroup() {return scatterGroup;}
+
+            public ChartGroupsDef setScatterGroup(java.util.List<String> v)
+            {
+                this.scatterGroup = v;
+                return this;
+            }
+
+            public java.util.List<String> getCombinationGroup() {return combinationGroup;}
+
+            public ChartGroupsDef setCombinationGroup(java.util.List<String> v)
+            {
+                this.combinationGroup = v;
+                return this;
+            }
+
+            public java.util.List<String> getPolarGroup() {return polarGroup;}
+
+            public ChartGroupsDef setPolarGroup(java.util.List<String> v)
+            {
+                this.polarGroup = v;
+                return this;
+            }
+
+            public java.util.List<String> getStatisticalGroup() {return statisticalGroup;}
+
+            public ChartGroupsDef setStatisticalGroup(java.util.List<String> v)
+            {
+                this.statisticalGroup = v;
+                return this;
+            }
+
+            public java.util.List<String> getHierarchicalGroup() {return hierarchicalGroup;}
+
+            public ChartGroupsDef setHierarchicalGroup(java.util.List<String> v)
+            {
+                this.hierarchicalGroup = v;
+                return this;
+            }
+
+            public java.util.List<String> getSpecializedGroup() {return specializedGroup;}
+
+            public ChartGroupsDef setSpecializedGroup(java.util.List<String> v)
+            {
+                this.specializedGroup = v;
+                return this;
+            }
+
+            public java.util.List<String> getFunnelGroup() {return funnelGroup;}
+
+            public ChartGroupsDef setFunnelGroup(java.util.List<String> v)
+            {
+                this.funnelGroup = v;
+                return this;
+            }
+        }
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        public static class DataPanel
+        {
+            @JsonProperty("groups")
+            private java.util.List<DataGroup> groups;
+
+            public java.util.List<DataGroup> getGroups() {return groups;}
+
+            public DataPanel setGroups(java.util.List<DataGroup> groups)
+            {
+                this.groups = groups;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_NULL)
+            public static class DataGroup
+            {
+                @JsonProperty("type")
+                private String type;
+                @JsonProperty("isOpen")
+                private Boolean isOpen;
+
+                public String getType() {return type;}
+
+                public DataGroup setType(String type)
+                {
+                    this.type = type;
+                    return this;
+                }
+
+                public Boolean getIsOpen() {return isOpen;}
+
+                public DataGroup setIsOpen(Boolean isOpen)
+                {
+                    this.isOpen = isOpen;
+                    return this;
+                }
+            }
+        }
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        public static class FormatPanel
+        {
+            @JsonProperty("groups")
+            private java.util.List<FormatGroup> groups;
+
+            public java.util.List<FormatGroup> getGroups() {return groups;}
+
+            public FormatPanel setGroups(java.util.List<FormatGroup> groups)
+            {
+                this.groups = groups;
+                return this;
+            }
+
+            @JsonInclude(JsonInclude.Include.NON_NULL)
+            public static class FormatGroup
+            {
+                @JsonProperty("type")
+                private String type;
+                @JsonProperty("isOpen")
+                private Boolean isOpen;
+
+                public String getType() {return type;}
+
+                public FormatGroup setType(String type)
+                {
+                    this.type = type;
+                    return this;
+                }
+
+                public Boolean getIsOpen() {return isOpen;}
+
+                public FormatGroup setIsOpen(Boolean isOpen)
+                {
+                    this.isOpen = isOpen;
+                    return this;
+                }
             }
         }
     }
@@ -1830,6 +2096,16 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     public J setCustomChartThemes(Object customChartThemes)
     {
         this.customChartThemes = customChartThemes;
+        return (J) this;
+    }
+
+    /**
+     * Provide custom chart themes as a raw TypeScript/JSON literal string mapping theme names to themes.
+     * This preserves callbacks in overrides and allows referencing AG Charts options directly.
+     */
+    public J setCustomChartThemesRaw(String rawLiteral)
+    {
+        this.customChartThemes = rawLiteral == null ? null : new RawJsFunction(rawLiteral);
         return (J) this;
     }
 

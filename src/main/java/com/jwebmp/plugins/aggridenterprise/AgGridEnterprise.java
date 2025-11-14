@@ -7,8 +7,12 @@ import com.jwebmp.core.base.interfaces.IComponentHierarchyBase;
 import com.jwebmp.plugins.aggrid.AgGrid;
 import com.jwebmp.plugins.aggrid.options.AgGridColumnDef;
 import com.jwebmp.plugins.aggrid.options.AgGridOptions;
+import com.jwebmp.plugins.aggridenterprise.options.AgGridEnterpriseColumnDef;
 import com.jwebmp.plugins.aggridenterprise.options.AgGridEnterpriseOptions;
+import com.jwebmp.plugins.aggridenterprise.options.mapping.AgGridColDefEnterpriseMapper;
 import jakarta.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * AG Grid Enterprise component extending the community AgGrid with enterprise-specific options
@@ -31,7 +35,7 @@ import jakarta.validation.constraints.NotNull;
           return defaultItems;
         }
         """)
-@NgAfterViewInit("this.applySuppressAggFuncInHeader();")
+@NgAfterViewInit("this.applySuppressAggFuncInHeader(); this.initCrossFilterCharts(); this.initRangeCharts();")
 public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends AgGrid<J>
 {
     private AgGridEnterpriseOptions<?> enterpriseOptions;
@@ -48,6 +52,11 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
      * Holds the TS method body to be appended by methods() when full context menu is configured.
      */
     private String fullContextMenuMethodBody;
+
+    // Stores cross-filter chart parameter object literals to be invoked after view init
+    private final List<String> crossFilterChartsQueue = new ArrayList<>();
+    // Stores range chart parameter object literals to be invoked after view init
+    private final List<String> rangeChartsQueue = new ArrayList<>();
 
     public AgGridEnterprise()
     {
@@ -91,6 +100,57 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
         ).formatted(id, (this.suppressAggFuncInHeaderTs != null)
                 ? "api.setGridOption('suppressAggFuncInHeader', this.suppressAggFuncInHeader);"
                 : "// no-op"));
+
+        // Generate cross filter charts initializer
+        s.add(("""
+                initCrossFilterCharts() {
+                    try {
+                        const api = this.%s?.api;
+                        if (!api) { return; }
+                        %s
+                    } catch (e) {
+                        console.error('initCrossFilterCharts failed', e);
+                    }
+                }
+                """)
+                .formatted(id, crossFilterChartsQueue.isEmpty() ? "// none queued" : String.join("\n", crossFilterChartsQueue.stream().map(p -> "api.createCrossFilterChart(" + p + ");").toList())));
+
+        // Generate range charts initializer
+        s.add(("""
+                initRangeCharts() {
+                    try {
+                        const api = this.%s?.api;
+                        if (!api) { return; }
+                        %s
+                    } catch (e) {
+                        console.error('initRangeCharts failed', e);
+                    }
+                }
+                """)
+                .formatted(id, rangeChartsQueue.isEmpty() ? "// none queued" : String.join("\n", rangeChartsQueue.stream().map(p -> "api.createRangeChart(" + p + ");").toList())));
+
+        // Add Chart Tool Panel open/close helpers for programmatic control
+        s.add( ("""
+                openChartToolPanel(chartId?: string, panel?: 'settings' | 'data' | 'format') {
+                    try {
+                        const api = this.%s?.api;
+                        if (!api || !chartId) { return; }
+                        api.openChartToolPanel({ chartId: chartId, panel: panel });
+                    } catch (e) {
+                        console.error('openChartToolPanel failed', e);
+                    }
+                }
+                closeChartToolPanel(chartId?: string) {
+                    try {
+                        const api = this.%s?.api;
+                        if (!api || !chartId) { return; }
+                        api.closeChartToolPanel({ chartId: chartId });
+                    } catch (e) {
+                        console.error('closeChartToolPanel failed', e);
+                    }
+                }
+                """ ).formatted(id, id) );
+
         if (this.fullContextMenuMethodBody != null)
         {
             s.add(this.fullContextMenuMethodBody);
@@ -194,6 +254,133 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
     }
 
     /**
+     * Queue a cross-filter chart to be created after the grid view initializes.
+     * Provide a TypeScript object literal string conforming to CreateCrossFilterChartParams.
+     * Example: "{ chartType: 'pie', cellRange: { columns: ['salesRep','sale'] }, aggFunc: 'sum' }"
+     */
+    public J createCrossFilterChart(String paramsTsLiteral)
+    {
+        if (paramsTsLiteral != null && !paramsTsLiteral.isBlank())
+        {
+            crossFilterChartsQueue.add(paramsTsLiteral);
+        }
+        return (J) this;
+    }
+
+    /**
+     * Queue a range chart to be created after the grid view initializes.
+     * Provide a TypeScript object literal string conforming to CreateRangeChartParams.
+     * Example: "{ chartType: 'line', cellRange: { columns: ['date','avgTemp'] }, suppressChartRanges: true }"
+     */
+    public J createRangeChart(String paramsTsLiteral)
+    {
+        if (paramsTsLiteral != null && !paramsTsLiteral.isBlank())
+        {
+            rangeChartsQueue.add(paramsTsLiteral);
+        }
+        return (J) this;
+    }
+
+    /**
+     * Helper to build a simple params object literal for charts using only columns and chartType.
+     * aggFunc is optional and defaults to 'sum' if not provided.
+     */
+    public J createCrossFilterChart(String chartType, String[] columns, String aggFunc)
+    {
+        String agg = (aggFunc == null || aggFunc.isBlank()) ? "'sum'" : ("'" + aggFunc.replace("'", "\\'") + "'");
+        String cols = "['" + String.join("','", columns) + "']";
+        String literal = "{ chartType: '" + chartType.replace("'", "\\'") + "', cellRange: { columns: " + cols + " }, aggFunc: " + agg + " }";
+        return createCrossFilterChart(literal);
+    }
+
+    /**
+     * Overload that accepts a full Java object hierarchy for chart params.
+     */
+    public J createCrossFilterChart(com.jwebmp.plugins.aggridenterprise.charts.CreateCrossFilterChartParams params)
+    {
+        if (params != null)
+        {
+            // Use JavaScriptPart JSON string (already preserves raw fields via @JsonRawValue)
+            String literal = params.toString();
+            if (literal != null && !literal.isBlank())
+            {
+                crossFilterChartsQueue.add(literal);
+            }
+        }
+        return (J) this;
+    }
+
+    /**
+     * Overload that accepts a full Java object hierarchy for RANGE chart params.
+     */
+    public J createRangeChart(com.jwebmp.plugins.aggridenterprise.charts.CreateRangeChartParams params)
+    {
+        if (params != null)
+        {
+            String literal = params.toString();
+            if (literal != null && !literal.isBlank())
+            {
+                rangeChartsQueue.add(literal);
+            }
+        }
+        return (J) this;
+    }
+
+    /**
+     * Convenience helper for simple range charts.
+     */
+    public J createRangeChart(String chartType, String[] columns)
+    {
+        String cols = "['" + String.join("','", columns) + "']";
+        String literal = "{ chartType: '" + chartType.replace("'", "\\'") + "', cellRange: { columns: " + cols + " } }";
+        return createRangeChart(literal);
+    }
+
+    // Convenience builders for common cross-filter charts
+    public J pieCrossFilter(String categoryField, String seriesField, String aggFunc, String containerTs)
+    {
+        var range = new com.jwebmp.plugins.aggridenterprise.charts.ChartParamsCellRange().setColumns(java.util.List.of(categoryField, seriesField));
+        var p = new com.jwebmp.plugins.aggridenterprise.charts.CreateCrossFilterChartParams()
+                .setChartType("pie")
+                .setCellRange(range)
+                .setAggFunc(aggFunc == null || aggFunc.isBlank() ? "sum" : aggFunc)
+                .setSort(false);
+        if (containerTs != null && !containerTs.isBlank())
+        {
+            p.setChartContainerTs(containerTs);
+        }
+        return createCrossFilterChart(p);
+    }
+
+    public J barCrossFilter(String categoryField, String seriesField, String aggFunc, String containerTs)
+    {
+        var range = new com.jwebmp.plugins.aggridenterprise.charts.ChartParamsCellRange().setColumns(java.util.List.of(categoryField, seriesField));
+        var p = new com.jwebmp.plugins.aggridenterprise.charts.CreateCrossFilterChartParams()
+                .setChartType("bar")
+                .setCellRange(range)
+                .setAggFunc(aggFunc == null || aggFunc.isBlank() ? "sum" : aggFunc);
+        if (containerTs != null && !containerTs.isBlank())
+        {
+            p.setChartContainerTs(containerTs);
+        }
+        return createCrossFilterChart(p);
+    }
+
+    public J columnCrossFilter(String categoryField, String seriesField, String aggFunc, String containerTs)
+    {
+        var range = new com.jwebmp.plugins.aggridenterprise.charts.ChartParamsCellRange().setColumns(java.util.List.of(categoryField, seriesField));
+        var p = new com.jwebmp.plugins.aggridenterprise.charts.CreateCrossFilterChartParams()
+                .setChartType("column")
+                .setCellRange(range)
+                .setAggFunc(aggFunc == null || aggFunc.isBlank() ? "sum" : aggFunc);
+        if (containerTs != null && !containerTs.isBlank())
+        {
+            p.setChartContainerTs(containerTs);
+        }
+        return createCrossFilterChart(p);
+    }
+
+    /**
      * Set AG Grid Enterprise license key at runtime (if using licenseManager global)
      */
     public J setEnterpriseLicenseKey(String key)
@@ -203,6 +390,104 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
         // expose as attribute for Angular binding if a user binds it
         addAttribute("[licenseKey]", "'" + key.replace("'", "\\'") + "'");
         return (J) this;
+    }
+
+    // ----------------------------- Pivot Helpers -----------------------------
+
+    /** Enable Pivot Mode on the grid. */
+    public J enablePivotMode()
+    {
+        ((AgGridEnterpriseOptions<?>) getOptions()).setPivotMode(true);
+        addAttribute("[pivotMode]", "true");
+        return (J) this;
+    }
+
+    /**
+     * Mark a column as a Row Group column. If the column def isn't enterprise, it will be converted.
+     */
+    public J addRowGroup(String field)
+    {
+        if (field == null) return (J) this;
+        var col = ensureEnterpriseColDef(field);
+        if (col != null)
+        {
+            col.setRowGroup(true);
+            col.setEnableRowGroup(true);
+        }
+        return (J) this;
+    }
+
+    /** Mark a column as a Pivot column. */
+    public J addPivot(String field)
+    {
+        if (field == null) return (J) this;
+        var col = ensureEnterpriseColDef(field);
+        if (col != null)
+        {
+            col.setPivot(true);
+            col.setEnablePivot(true);
+        }
+        return (J) this;
+    }
+
+    /** Mark a column as a Value column with an aggregation function. */
+    public J addValueColumn(String field, String aggFunc)
+    {
+        if (field == null) return (J) this;
+        var col = ensureEnterpriseColDef(field);
+        if (col != null)
+        {
+            col.setEnableValue(true);
+            if (aggFunc != null && !aggFunc.isBlank())
+            {
+                col.setAggFunc(aggFunc); // prefer string form
+            }
+        }
+        return (J) this;
+    }
+
+    /** Clears pivot-specific flags on all columns. */
+    public J clearPivot()
+    {
+        if (getOptions().getColumnDefs() != null)
+        {
+            for (AgGridColumnDef<?> c : getOptions().getColumnDefs())
+            {
+                AgGridEnterpriseColumnDef<?> ent = (c instanceof AgGridEnterpriseColumnDef)
+                        ? (AgGridEnterpriseColumnDef<?>) c
+                        : AgGridColDefEnterpriseMapper.INSTANCE.toEnterpriseColDef(c);
+                ent.setPivot(null);
+                ent.setEnablePivot(null);
+                ent.setEnableRowGroup(null);
+                ent.setEnableValue(null);
+                ent.setAggFunc((String) null);
+            }
+        }
+        return (J) this;
+    }
+
+    /**
+     * Utility: ensure the column def for the given field is an enterprise column def, replacing the list entry if necessary.
+     */
+    private AgGridEnterpriseColumnDef<?> ensureEnterpriseColDef(String field)
+    {
+        if (getOptions().getColumnDefs() == null) return null;
+        List<AgGridColumnDef<?>> defs = getOptions().getColumnDefs();
+        for (int i = 0; i < defs.size(); i++)
+        {
+            AgGridColumnDef<?> c = defs.get(i);
+            if (field.equals(c.getField()))
+            {
+                if (c instanceof AgGridEnterpriseColumnDef)
+                {
+                    return (AgGridEnterpriseColumnDef<?>) c;
+                }
+                AgGridEnterpriseColumnDef<?> ent = AgGridColDefEnterpriseMapper.INSTANCE.toEnterpriseColDef(c);
+                defs.set(i, (AgGridColumnDef<?>) ent);
+                return ent;
+            }
+        }
+        return null;
     }
 
     /**
