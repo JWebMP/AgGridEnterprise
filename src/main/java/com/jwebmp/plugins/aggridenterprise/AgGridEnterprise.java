@@ -176,7 +176,7 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
      * Sets the options but ensures it is of enterprise type
      */
     @NotNull
-    public J setOptions(AgGridEnterpriseOptions<?> options)
+    public @org.jspecify.annotations.NonNull J setOptions(AgGridEnterpriseOptions<?> options)
     {
         if (options instanceof AgGridEnterpriseOptions)
         {
@@ -383,7 +383,7 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
     /**
      * Set AG Grid Enterprise license key at runtime (if using licenseManager global)
      */
-    public J setEnterpriseLicenseKey(String key)
+    public @org.jspecify.annotations.NonNull J setEnterpriseLicenseKey(String key)
     {
         // provide a field to be picked up by custom boot code in apps; not enforced here
         getOptions();
@@ -533,7 +533,7 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
         return (J) this;
     }
 
-    public J setShowDefaultContextMenu()
+    public @org.jspecify.annotations.NonNull J setShowDefaultContextMenu()
     {
         // Bind to the annotated TS method via Angular HTML property
         addAttribute("[getContextMenuItems]", "getContextMenuItems");

@@ -256,13 +256,13 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return aggFunc;
     }
 
-    public J setAggFunc(AggFunc aggFunc)
+    public @org.jspecify.annotations.NonNull J setAggFunc(AggFunc aggFunc)
     {
         this.aggFunc = aggFunc == null ? null : aggFunc.toString();
         return (J) this;
     }
 
-    public J setAggFunc(String aggFuncName)
+    public @org.jspecify.annotations.NonNull J setAggFunc(String aggFuncName)
     {
         this.aggFunc = aggFuncName;
         return (J) this;
@@ -273,13 +273,13 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return initialAggFunc;
     }
 
-    public J setInitialAggFunc(AggFunc initial)
+    public @org.jspecify.annotations.NonNull J setInitialAggFunc(AggFunc initial)
     {
         this.initialAggFunc = initial == null ? null : initial.toString();
         return (J) this;
     }
 
-    public J setInitialAggFunc(String initial)
+    public @org.jspecify.annotations.NonNull J setInitialAggFunc(String initial)
     {
         this.initialAggFunc = initial;
         return (J) this;
@@ -290,7 +290,7 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return enableValue;
     }
 
-    public J setEnableValue(Boolean enableValue)
+    public @org.jspecify.annotations.NonNull J setEnableValue(Boolean enableValue)
     {
         this.enableValue = enableValue;
         return (J) this;
@@ -301,7 +301,7 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return enableRowGroup;
     }
 
-    public J setEnableRowGroup(Boolean enableRowGroup)
+    public @org.jspecify.annotations.NonNull J setEnableRowGroup(Boolean enableRowGroup)
     {
         this.enableRowGroup = enableRowGroup;
         return (J) this;
@@ -312,7 +312,7 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return enablePivot;
     }
 
-    public J setEnablePivot(Boolean enablePivot)
+    public @org.jspecify.annotations.NonNull J setEnablePivot(Boolean enablePivot)
     {
         this.enablePivot = enablePivot;
         return (J) this;
@@ -323,7 +323,7 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return pivot;
     }
 
-    public J setPivot(Boolean pivot)
+    public @org.jspecify.annotations.NonNull J setPivot(Boolean pivot)
     {
         this.pivot = pivot;
         return (J) this;
@@ -341,7 +341,7 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
     /**
      * Set a built-in cell data type using the enum.
      */
-    public J setCellDataType(CellDataType type)
+    public @org.jspecify.annotations.NonNull J setCellDataType(CellDataType type)
     {
         this.cellDataType = type == null ? null : type.toString();
         return (J) this;
@@ -350,7 +350,7 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
     /**
      * Set a custom cell data type by name (e.g. "myCustomType").
      */
-    public J setCellDataType(String customType)
+    public @org.jspecify.annotations.NonNull J setCellDataType(String customType)
     {
         this.cellDataType = customType;
         return (J) this;
@@ -370,13 +370,13 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return allowedAggFuncs;
     }
 
-    public J setAllowedAggFuncs(List<String> allowedAggFuncs)
+    public @org.jspecify.annotations.NonNull J setAllowedAggFuncs(List<String> allowedAggFuncs)
     {
         this.allowedAggFuncs = allowedAggFuncs;
         return (J) this;
     }
 
-    public J setAllowedAggFuncs(AggFunc... funcs)
+    public @org.jspecify.annotations.NonNull J setAllowedAggFuncs(AggFunc... funcs)
     {
         if (funcs == null)
         {
@@ -397,13 +397,13 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return defaultAggFunc;
     }
 
-    public J setDefaultAggFunc(String defaultAggFunc)
+    public @org.jspecify.annotations.NonNull J setDefaultAggFunc(String defaultAggFunc)
     {
         this.defaultAggFunc = defaultAggFunc;
         return (J) this;
     }
 
-    public J setDefaultAggFunc(AggFunc defaultAggFunc)
+    public @org.jspecify.annotations.NonNull J setDefaultAggFunc(AggFunc defaultAggFunc)
     {
         this.defaultAggFunc = defaultAggFunc == null ? null : defaultAggFunc.toString();
         return (J) this;
@@ -414,13 +414,13 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return groupTotalRow;
     }
 
-    public J setGroupTotalRow(GroupTotalRowPosition pos)
+    public @org.jspecify.annotations.NonNull J setGroupTotalRow(GroupTotalRowPosition pos)
     {
         this.groupTotalRow = pos == null ? null : pos.toString();
         return (J) this;
     }
 
-    public J setGroupTotalRowRawCallback(String rawCallback)
+    public @org.jspecify.annotations.NonNull J setGroupTotalRowRawCallback(String rawCallback)
     {
         this.groupTotalRow = rawCallback; // left as raw string; user can provide callback signature string
         return (J) this;
@@ -431,7 +431,7 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return grandTotalRow;
     }
 
-    public J setGrandTotalRow(GrandTotalRowPosition pos)
+    public @org.jspecify.annotations.NonNull J setGrandTotalRow(GrandTotalRowPosition pos)
     {
         this.grandTotalRow = pos == null ? null : pos.toString();
         return (J) this;
@@ -442,7 +442,7 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return suppressAggFuncInHeader;
     }
 
-    public J setSuppressAggFuncInHeader(Boolean suppressAggFuncInHeader)
+    public @org.jspecify.annotations.NonNull J setSuppressAggFuncInHeader(Boolean suppressAggFuncInHeader)
     {
         this.suppressAggFuncInHeader = suppressAggFuncInHeader;
         return (J) this;
@@ -453,7 +453,7 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return aggregateOnlyChangedColumns;
     }
 
-    public J setAggregateOnlyChangedColumns(Boolean aggregateOnlyChangedColumns)
+    public @org.jspecify.annotations.NonNull J setAggregateOnlyChangedColumns(Boolean aggregateOnlyChangedColumns)
     {
         this.aggregateOnlyChangedColumns = aggregateOnlyChangedColumns;
         return (J) this;
@@ -464,7 +464,7 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return suppressAggFilteredOnly;
     }
 
-    public J setSuppressAggFilteredOnly(Boolean suppressAggFilteredOnly)
+    public @org.jspecify.annotations.NonNull J setSuppressAggFilteredOnly(Boolean suppressAggFilteredOnly)
     {
         this.suppressAggFilteredOnly = suppressAggFilteredOnly;
         return (J) this;
@@ -475,7 +475,7 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return groupAggFiltering;
     }
 
-    public J setGroupAggFiltering(Boolean groupAggFiltering)
+    public @org.jspecify.annotations.NonNull J setGroupAggFiltering(Boolean groupAggFiltering)
     {
         this.groupAggFiltering = groupAggFiltering;
         return (J) this;
@@ -486,7 +486,7 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return groupSuppressBlankHeader;
     }
 
-    public J setGroupSuppressBlankHeader(Boolean groupSuppressBlankHeader)
+    public @org.jspecify.annotations.NonNull J setGroupSuppressBlankHeader(Boolean groupSuppressBlankHeader)
     {
         this.groupSuppressBlankHeader = groupSuppressBlankHeader;
         return (J) this;
@@ -497,13 +497,13 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return suppressStickyTotalRow;
     }
 
-    public J setSuppressStickyTotalRow(Boolean suppress)
+    public @org.jspecify.annotations.NonNull J setSuppressStickyTotalRow(Boolean suppress)
     {
         this.suppressStickyTotalRow = suppress;
         return (J) this;
     }
 
-    public J setSuppressStickyTotalRow(StickyTotalRowSuppression which)
+    public @org.jspecify.annotations.NonNull J setSuppressStickyTotalRow(StickyTotalRowSuppression which)
     {
         this.suppressStickyTotalRow = which == null ? null : which.toString();
         return (J) this;
@@ -514,7 +514,7 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return alwaysAggregateAtRootLevel;
     }
 
-    public J setAlwaysAggregateAtRootLevel(Boolean alwaysAggregateAtRootLevel)
+    public @org.jspecify.annotations.NonNull J setAlwaysAggregateAtRootLevel(Boolean alwaysAggregateAtRootLevel)
     {
         this.alwaysAggregateAtRootLevel = alwaysAggregateAtRootLevel;
         return (J) this;
@@ -529,7 +529,7 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
      * Set a raw JavaScript function for getGroupRowAgg, serialized without quotes.
      * Example: "params => { return { sum: params.nodes.reduce((a,n)=>a+n.data.value,0) }; }"
      */
-    public J setGetGroupRowAgg(String getGroupRowAggRaw)
+    public @org.jspecify.annotations.NonNull J setGetGroupRowAgg(String getGroupRowAggRaw)
     {
         this.getGroupRowAgg = getGroupRowAggRaw;
         return (J) this;
