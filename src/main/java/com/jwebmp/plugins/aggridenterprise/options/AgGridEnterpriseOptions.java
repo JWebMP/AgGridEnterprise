@@ -1671,6 +1671,20 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     @JsonRawValue
     private String getServerSideGroupKey;
 
+    /**
+     * AG Grid v34.2.0: Suppress infinite scrolling in server-side row model (enabled by default).
+     * Set to true to disable infinite scrolling behavior introduced in v34.
+     */
+    @JsonProperty("suppressServerSideInfiniteScroll")
+    private Boolean suppressServerSideInfiniteScroll;
+
+    /**
+     * AG Grid v34.2.0: Suppress the chart tool panels button (hamburger menu) visibility.
+     * Chart toolbar is now visible by default in v34; set true to revert to v33 behavior.
+     */
+    @JsonProperty("suppressChartToolPanelsButton")
+    private Boolean suppressChartToolPanelsButton;
+
     public String getServerSideDatasource() {return serverSideDatasource;}
 
     public @org.jspecify.annotations.NonNull J setServerSideDatasourceRaw(String rawJs)
@@ -1812,6 +1826,28 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     public @org.jspecify.annotations.NonNull J setGetServerSideGroupKeyRaw(String rawJs)
     {
         this.getServerSideGroupKey = rawJs;
+        return (J) this;
+    }
+
+    /**
+     * AG Grid v34.2.0: Suppress infinite scrolling in server-side row model (enabled by default).
+     */
+    public Boolean getSuppressServerSideInfiniteScroll() {return suppressServerSideInfiniteScroll;}
+
+    public @org.jspecify.annotations.NonNull J setSuppressServerSideInfiniteScroll(Boolean v)
+    {
+        this.suppressServerSideInfiniteScroll = v;
+        return (J) this;
+    }
+
+    /**
+     * AG Grid v34.2.0: Suppress chart tool panels button visibility (visible by default in v34).
+     */
+    public Boolean getSuppressChartToolPanelsButton() {return suppressChartToolPanelsButton;}
+
+    public @org.jspecify.annotations.NonNull J setSuppressChartToolPanelsButton(Boolean v)
+    {
+        this.suppressChartToolPanelsButton = v;
         return (J) this;
     }
 

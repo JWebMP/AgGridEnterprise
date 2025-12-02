@@ -244,6 +244,55 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
     }
 
     /**
+     * AG Grid v34.2.0: Suppress infinite scrolling in server-side row model (enabled by default).
+     * Use this if you need the v33 behavior where infinite scrolling could be disabled.
+     * @param suppressInfiniteScroll true to disable infinite scrolling; false or null to use default (enabled)
+     * @return this
+     */
+    public J suppressServerSideInfiniteScroll(Boolean suppressInfiniteScroll)
+    {
+        ((AgGridEnterpriseOptions<?>) getOptions()).setSuppressServerSideInfiniteScroll(suppressInfiniteScroll);
+        if (suppressInfiniteScroll != null)
+        {
+            addAttribute("[suppressServerSideInfiniteScroll]", suppressInfiniteScroll ? "true" : "false");
+        }
+        return (J) this;
+    }
+
+    /**
+     * AG Grid v34.2.0: Allow unbalanced groups (disabled by default).
+     * Use this if your data structure requires different child counts per group.
+     * Migration note: v33 had this enabled by default; v34 disabled it.
+     * @param allow true to enable unbalanced groups; false or null to use default (disabled)
+     * @return this
+     */
+    public J allowUnbalancedGroups(Boolean allow)
+    {
+        ((AgGridEnterpriseOptions<?>) getOptions()).setGroupAllowUnbalanced(allow);
+        if (allow != null)
+        {
+            addAttribute("[groupAllowUnbalanced]", allow ? "true" : "false");
+        }
+        return (J) this;
+    }
+
+    /**
+     * AG Grid v34.2.0: Suppress chart tool panels button visibility (visible by default).
+     * Chart toolbar is now visible by default in v34; use this to revert to v33 behavior.
+     * @param suppress true to hide chart tool panels button; false or null to use default (visible)
+     * @return this
+     */
+    public J suppressChartToolPanelsButton(Boolean suppress)
+    {
+        ((AgGridEnterpriseOptions<?>) getOptions()).setSuppressChartToolPanelsButton(suppress);
+        if (suppress != null)
+        {
+            addAttribute("[suppressChartToolPanelsButton]", suppress ? "true" : "false");
+        }
+        return (J) this;
+    }
+
+    /**
      * Enable built-in Row Numbers feature (preferred over legacy showRowNumbers helper).
      */
     public J enableRowNumbers()
