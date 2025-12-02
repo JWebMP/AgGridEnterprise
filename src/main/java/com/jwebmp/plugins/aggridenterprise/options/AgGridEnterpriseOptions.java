@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.jwebmp.plugins.aggrid.options.AgGridColumnDef;
 import com.jwebmp.plugins.aggrid.options.AgGridOptions;
 import com.jwebmp.plugins.aggridenterprise.options.enums.PivotPanelShow;
@@ -11,6 +12,14 @@ import com.jwebmp.plugins.aggridenterprise.options.enums.RowGroupPanelShow;
 import com.jwebmp.plugins.aggridenterprise.options.enums.RowModelTypeEnterprise;
 import com.jwebmp.plugins.aggridenterprise.options.find.IFindOptions;
 import com.jwebmp.plugins.aggridenterprise.options.mapping.AgGridColDefEnterpriseMapper;
+import com.jwebmp.plugins.aggridenterprise.options.modules.AdvancedFilteringOptions;
+import com.jwebmp.plugins.aggridenterprise.options.modules.AggregationOptions;
+import com.jwebmp.plugins.aggridenterprise.options.modules.ChartsOptions;
+import com.jwebmp.plugins.aggridenterprise.options.modules.PivotingOptions;
+import com.jwebmp.plugins.aggridenterprise.options.modules.RangeSelectionOptions;
+import com.jwebmp.plugins.aggridenterprise.options.modules.RowGroupingOptions;
+import com.jwebmp.plugins.aggridenterprise.options.modules.ServerSideRowModelOptions;
+import com.jwebmp.plugins.aggridenterprise.options.modules.SideBarAndStatusBarOptions;
 
 import java.util.List;
 
@@ -39,6 +48,151 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
         setDefaultColDef(ent);
         return ent;
     }
+
+    // ===== PHASE 2: MODULAR ENTERPRISE OPTIONS (8 Modules) =====
+    // Using @JsonUnwrapped for backward-compatible JSON serialization (all properties flatten to parent)
+
+    /**
+     * Integrated Charts Configuration Module
+     * Encapsulates all chart-related options (enableCharts, chartThemes, suppressChartToolPanelsButton, etc.)
+     */
+    @JsonUnwrapped
+    private ChartsOptions<?> charts = new ChartsOptions<>();
+
+    /**
+     * Server-Side Row Model Configuration Module
+     * Encapsulates all SSRM options (serverSideDatasource, cacheBlockSize, suppressServerSideInfiniteScroll, etc.)
+     */
+    @JsonUnwrapped
+    private ServerSideRowModelOptions<?> serverSideRowModel = new ServerSideRowModelOptions<>();
+
+    /**
+     * Row Grouping & Aggregation Configuration Module
+     * Encapsulates all grouping options (groupAllowUnbalanced, groupTotalRow, groupRowRenderer, etc.)
+     */
+    @JsonUnwrapped
+    private RowGroupingOptions<?> rowGrouping = new RowGroupingOptions<>();
+
+    /**
+     * Aggregation Functions Configuration Module
+     * Encapsulates aggregation configuration (aggFuncs, aggregateOnlyChangedColumns, groupAggFiltering, etc.)
+     */
+    @JsonUnwrapped
+    private AggregationOptions<?> aggregation = new AggregationOptions<>();
+
+    /**
+     * Pivot Mode Configuration Module
+     * Encapsulates all pivot options (pivotMode, pivotRowTotals, processPivotResultColDef, etc.)
+     */
+    @JsonUnwrapped
+    private PivotingOptions<?> pivoting = new PivotingOptions<>();
+
+    /**
+     * Advanced Filtering Configuration Module
+     * Encapsulates advanced filter builder and cell selection options
+     */
+    @JsonUnwrapped
+    private AdvancedFilteringOptions<?> advancedFiltering = new AdvancedFilteringOptions<>();
+
+    /**
+     * SideBar & StatusBar Configuration Module
+     * Encapsulates UI panel configuration (sideBar, statusBar, allowDragFromColumnsToolPanel)
+     */
+    @JsonUnwrapped
+    private SideBarAndStatusBarOptions<?> sideBarAndStatusBar = new SideBarAndStatusBarOptions<>();
+
+    /**
+     * Range Selection Configuration Module
+     * Encapsulates range selection options (enableRangeSelection)
+     */
+    @JsonUnwrapped
+    private RangeSelectionOptions<?> rangeSelection = new RangeSelectionOptions<>();
+
+    // ===== Module Convenience Accessor Methods =====
+
+    /**
+     * Configure integrated charts options.
+     *
+     * @return ChartsOptions module for fluent chaining
+     */
+    public ChartsOptions<?> configureCharts()
+    {
+        return charts;
+    }
+
+    /**
+     * Configure server-side row model options.
+     *
+     * @return ServerSideRowModelOptions module for fluent chaining
+     */
+    public ServerSideRowModelOptions<?> configureServerSideRowModel()
+    {
+        return serverSideRowModel;
+    }
+
+    /**
+     * Configure row grouping and aggregation options.
+     *
+     * @return RowGroupingOptions module for fluent chaining
+     */
+    public RowGroupingOptions<?> configureRowGrouping()
+    {
+        return rowGrouping;
+    }
+
+    /**
+     * Configure aggregation function options.
+     *
+     * @return AggregationOptions module for fluent chaining
+     */
+    public AggregationOptions<?> configureAggregation()
+    {
+        return aggregation;
+    }
+
+    /**
+     * Configure pivot mode options.
+     *
+     * @return PivotingOptions module for fluent chaining
+     */
+    public PivotingOptions<?> configurePivoting()
+    {
+        return pivoting;
+    }
+
+    /**
+     * Configure advanced filtering options.
+     *
+     * @return AdvancedFilteringOptions module for fluent chaining
+     */
+    public AdvancedFilteringOptions<?> configureAdvancedFiltering()
+    {
+        return advancedFiltering;
+    }
+
+    /**
+     * Configure sidebar and statusbar options.
+     *
+     * @return SideBarAndStatusBarOptions module for fluent chaining
+     */
+    public SideBarAndStatusBarOptions<?> configureSideBarAndStatusBar()
+    {
+        return sideBarAndStatusBar;
+    }
+
+    /**
+     * Configure range selection options.
+     *
+     * @return RangeSelectionOptions module for fluent chaining
+     */
+    public RangeSelectionOptions<?> configureRangeSelection()
+    {
+        return rangeSelection;
+    }
+
+    // ===== END PHASE 2 MODULAR OPTIONS =====
+    // NOTE: The following properties remain for backward compatibility during transition
+    // They will eventually be marked @Deprecated and removed in future versions
 
     @JsonProperty("enableCharts")
     private Boolean enableCharts;
