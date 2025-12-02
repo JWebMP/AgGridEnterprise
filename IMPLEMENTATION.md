@@ -2,6 +2,8 @@
 
 **Purpose:** Describes the current module structure, component layout, and code organization of AgGridEnterprise.
 
+**Status:** Phase 2 Complete (Dec 2, 2025) — Modular restructuring with 8 focused feature-area modules using @JsonUnwrapped pattern.
+
 ---
 
 ## Project Structure
@@ -35,13 +37,23 @@ aggrid-enterprise/
 │   │   │   └── com/jwebmp/plugins/aggridenterprise/
 │   │   │       ├── AgGridEnterprise.java       # Main component
 │   │   │       ├── options/
-│   │   │       │   ├── AgGridEnterpriseOptions.java        # Root options
-│   │   │       │   ├── ChartOptions.java
-│   │   │       │   ├── RangeSelectionOptions.java
-│   │   │       │   ├── SideBarOptions.java
-│   │   │       │   ├── StatusBarOptions.java
-│   │   │       │   ├── RowGroupingOptions.java
-│   │   │       │   ├── ServerSideOptions.java
+│   │   │       │   ├── AgGridEnterpriseOptions.java        # Root options (orchestrator, Phase 2)
+│   │   │       │   ├── modules/                            # Phase 2: 8 Modular Components
+│   │   │       │   │   ├── ChartsOptions.java              # Charts configuration (10 properties)
+│   │   │       │   │   ├── ServerSideRowModelOptions.java  # SSRM configuration (17 properties)
+│   │   │       │   │   ├── RowGroupingOptions.java         # Row grouping config (22 properties)
+│   │   │       │   │   ├── AggregationOptions.java         # Aggregation functions (7 properties)
+│   │   │       │   │   ├── PivotingOptions.java            # Pivot mode config (11 properties)
+│   │   │       │   │   ├── AdvancedFilteringOptions.java   # Advanced filter config (6 properties)
+│   │   │       │   │   ├── SideBarAndStatusBarOptions.java # UI panels config (3 properties)
+│   │   │       │   │   └── RangeSelectionOptions.java      # Range selection config (1 property)
+│   │   │       │   ├── ToolPanelId.java                    # Phase 2C: Extracted enum
+│   │   │       │   ├── GroupTotalRowPosition.java          # Phase 2C: Extracted enum
+│   │   │       │   ├── GrandTotalRowPosition.java          # Phase 2C: Extracted enum
+│   │   │       │   ├── StickyTotalRowSuppression.java      # Phase 2C: Extracted enum
+│   │   │       │   ├── RowGroupingDisplayType.java         # Phase 2C: Extracted enum
+│   │   │       │   ├── SuppressGroupChangesColumnVisibilityMode.java  # Phase 2C: Extracted enum
+│   │   │       │   ├── PivotRowTotalsPosition.java         # Phase 2C: Extracted enum
 │   │   │       │   ├── mapping/
 │   │   │       │   │   ├── SideBarDef.java
 │   │   │       │   │   ├── SideBarToolPanelDef.java
@@ -119,39 +131,188 @@ aggrid-enterprise/
 
 Extends `AgGridOptions` (from community plugin). Root POJO holding all enterprise configuration.
 
-**Fields:**
-- `enableCharts: Boolean`
-- `chartThemes: List<ChartTheme>`
-- `enableRangeSelection: Boolean`
-- `sideBar: SideBarDef`
-- `statusBar: StatusBarDef`
-- `rowGroupPanelShow: PanelShow`
-- `pivotPanelShow: PanelShow`
-- `rowModelType: RowModelType`
-- `serverSideStoreType: String`
-- `cacheBlockSize: Integer`
-- `maxBlocksInCache: Integer`
-- `purgeClosedRowNodes: Boolean`
-- ... (other enterprise fields)
-
-**Serialization:** `@JsonAutoDetect(fieldVisibility = FIELD)` + `@JsonInclude(NON_NULL)`
-
-#### Feature-Specific Options
-
-- **ChartOptions** — Charts config (themes, toolbar, tool panel)
-- **RangeSelectionOptions** — Range selection config
-- **SideBarOptions** — Side bar config
-- **StatusBarOptions** — Status bar config
-- **RowGroupingOptions** — Row grouping config
-- **ServerSideOptions** — Server-side row model config
-
-Each can be instantiated standalone or via parent getters:
-
-```java
-grid.getOptions().getChartOptions().enableCharts();
+├── README.md                                   # Project readme
+├── PACT.md                                     # Product architecture
+├── RULES.md                                    # Project rules
+├── GLOSSARY.md                                 # Terminology
+├── GUIDES.md                                   # How-to guides
+├── IMPLEMENTATION.md                           # This file
+├── PHASE_2_COMPLETE.md                         # Phase 2 completion summary
+├── PHASE_2_MODULAR_RESTRUCTURING.md            # Phase 2 detailed plan & results
+├── AgGridEnterprise-Plan.md                    # Execution plan
+├── PROMPT_ADOPT_EXISTING_PROJECT.md            # Adoption template
+├── pom.xml                                     # Maven configuration
+└── flatter.pom                                 # Flattened POM (for IDE)
 ```
 
-### 3. Enums
+---
+
+## Core Components
+
+### 1. AgGridEnterprise Component
+
+**File:** `src/main/java/com/jwebmp/plugins/aggridenterprise/AgGridEnterprise.java`
+
+**Purpose:** Main component class; extends AgGrid from community plugin; provides fluent enterprise API.
+
+**Key Methods:**
+- `enableCharts()` — Enable charts feature
+- `enableRangeSelection()` — Enable range selection
+- `sideBarFiltersAndColumns()` — Preset: filters + columns side bar
+- `showRowGroupPanel()` — Show row grouping panel
+- `useServerSideRowModel()` — Enable server-side row model
+- `getOptions()` — Access AgGridEnterpriseOptions for detailed config
+
+**Type Safety:** Generic `<T extends AgGridEnterprise<T>>` enables self-returning fluent methods (CRTP).
+
+### 2. Options Architecture (Phase 2)
+
+#### AgGridEnterpriseOptions (Orchestrator)
+**File:** `src/main/java/.../options/AgGridEnterpriseOptions.java`
+
+**Status:** Phase 2 restructured as orchestrator class (1,433 lines, reduced from 2,168)
+
+Extends `AgGridOptions` (from community plugin). Root POJO orchestrating 8 modular components.
+
+**Phase 2 Structure:**
+- 8 @JsonUnwrapped module fields organizing 83 properties into feature areas
+- 8 convenience accessor methods for fluent configuration
+- Pattern: @JsonUnwrapped ensures 100% JSON backward compatible
+
+**Accessor Methods:**
+```java
+// Convenience methods to access modules
+public ChartsOptions<?> configureCharts() { return charts; }
+public ServerSideRowModelOptions<?> configureServerSideRowModel() { return ssrm; }
+public RowGroupingOptions<?> configureRowGrouping() { return grouping; }
+public AggregationOptions<?> configureAggregation() { return aggregation; }
+public PivotingOptions<?> configurePivoting() { return pivoting; }
+public AdvancedFilteringOptions<?> configureAdvancedFilter() { return advancedFilter; }
+public SideBarAndStatusBarOptions<?> configureSideBarAndStatusBar() { return sideBarStatusBar; }
+public RangeSelectionOptions<?> configureRangeSelection() { return rangeSelection; }
+```
+
+**Usage:**
+```java
+// Type-safe, modular configuration
+options.configureCharts()
+    .setEnableCharts(true)
+    .setChartThemes(Arrays.asList("ag-default"))
+    .parent();
+
+options.configureRowGrouping()
+    .setGroupAllowUnbalanced(false)
+    .parent();
+```
+
+### 2B. Phase 2 Modular Components
+
+Located in `src/main/java/.../options/modules/`
+
+#### ChartsOptions
+**File:** `src/main/java/.../options/modules/ChartsOptions.java`  
+**Properties:** 10  
+**Lines:** 220  
+**CRTP Pattern:** `<J extends ChartsOptions<J>>`
+
+Fields:
+- `enableCharts: Boolean`
+- `chartThemes: List<String>`
+- `chartThemeOverrides: Object`
+- `chartToolPanelsDef: ChartToolPanelsDef`
+- `chartGroupsDef: ChartGroupsDef`
+- `suppressChartToolPanelsButton: Boolean`
+- `getChartToolbarItems: Object`
+- `createChartContainer: Object`
+- `customChartThemes: Object`
+- `chartMenuItems: Object`
+
+#### ServerSideRowModelOptions
+**File:** `src/main/java/.../options/modules/ServerSideRowModelOptions.java`  
+**Properties:** 17  
+**Lines:** 320  
+
+Manages virtual scrolling and lazy loading through server-side callbacks.
+
+#### RowGroupingOptions
+**File:** `src/main/java/.../options/modules/RowGroupingOptions.java`  
+**Properties:** 22  
+**Lines:** 370  
+
+Largest module; handles grouping, hierarchy, and display options.
+
+#### AggregationOptions
+**File:** `src/main/java/.../options/modules/AggregationOptions.java`  
+**Properties:** 7  
+**Lines:** 140  
+
+Aggregation functions and filtering behavior.
+
+#### PivotingOptions
+**File:** `src/main/java/.../options/modules/PivotingOptions.java`  
+**Properties:** 11  
+**Lines:** 230  
+
+Pivot mode and cross-tabulation configuration.
+
+#### AdvancedFilteringOptions
+**File:** `src/main/java/.../options/modules/AdvancedFilteringOptions.java`  
+**Properties:** 6  
+**Lines:** 130  
+
+Advanced filter builder and cell selection.
+
+#### SideBarAndStatusBarOptions
+**File:** `src/main/java/.../options/modules/SideBarAndStatusBarOptions.java`  
+**Properties:** 3  
+**Lines:** 100  
+
+UI panel configuration for sidebar and status bar.
+
+#### RangeSelectionOptions
+**File:** `src/main/java/.../options/modules/RangeSelectionOptions.java`  
+**Properties:** 1  
+**Lines:** 80  
+
+Range selection and clipboard integration.
+
+### 2C. Phase 2C Extracted Enums
+
+Located in `src/main/java/.../options/`
+
+All enums follow consistent pattern with JSON string values:
+
+- **ToolPanelId.java** — Available tool panel identifiers
+- **GroupTotalRowPosition.java** — Total row positioning for groups
+- **GrandTotalRowPosition.java** — Grand total row positioning
+- **StickyTotalRowSuppression.java** — Sticky row behavior control
+- **RowGroupingDisplayType.java** — Row grouping display mode
+- **SuppressGroupChangesColumnVisibilityMode.java** — Column visibility on group changes
+- **PivotRowTotalsPosition.java** — Pivot row totals positioning
+
+### 2D. Serialization (Phase 2)
+
+**Pattern:** @JsonUnwrapped composition
+
+```java
+@JsonAutoDetect(fieldVisibility = ANY, getterVisibility = NONE, setterVisibility = NONE)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class AgGridEnterpriseOptions ... {
+    @JsonUnwrapped
+    private ChartsOptions<?> charts = new ChartsOptions<>();
+    
+    @JsonUnwrapped
+    private ServerSideRowModelOptions<?> ssrm = new ServerSideRowModelOptions<>();
+    
+    // ... 6 more @JsonUnwrapped modules
+}
+```
+
+**Result:** All 83 properties serialize flat to JSON (identical to monolithic structure), but code is organized into 8 focused modules.
+
+**Backward Compatibility:** ✅ 100% JSON output unchanged; old consuming code works without modification.
+
+### 3. Enums (Legacy + Phase 2)
 
 All enums in `src/main/java/.../options/enums/`
 
