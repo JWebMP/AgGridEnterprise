@@ -20,6 +20,7 @@ import java.util.Objects;
  */
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@SuppressWarnings("unchecked")
 public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> extends AgGridColumnDef<J>
 {
     /**

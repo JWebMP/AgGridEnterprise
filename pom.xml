@@ -29,6 +29,11 @@
             <groupId>com.jwebmp.plugins</groupId>
             <artifactId>aggrid</artifactId>
         </dependency>
+        
+        <dependency>
+            <groupId>com.jwebmp.plugins</groupId>
+            <artifactId>agcharts-enterprise</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.jwebmp.plugins</groupId>
             <artifactId>typescript-client</artifactId>

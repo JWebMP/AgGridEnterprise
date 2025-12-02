@@ -1,6 +1,5 @@
 package com.jwebmp.plugins.aggridenterprise;
 
-import com.jwebmp.core.base.angular.client.annotations.boot.NgBootConstructorBody;
 import com.jwebmp.core.base.angular.client.annotations.boot.NgBootImportReference;
 import com.jwebmp.core.base.angular.client.annotations.typescript.TsDependency;
 import com.jwebmp.core.plugins.PluginInformation;

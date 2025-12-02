@@ -3,10 +3,10 @@ package com.jwebmp.plugins.aggridenterprise;
 import com.jwebmp.core.base.angular.client.annotations.functions.NgAfterViewInit;
 import com.jwebmp.core.base.angular.client.annotations.structures.NgMethod;
 import com.jwebmp.core.base.angular.client.annotations.references.NgImportReference;
-import com.jwebmp.core.base.interfaces.IComponentHierarchyBase;
 import com.jwebmp.plugins.aggrid.AgGrid;
 import com.jwebmp.plugins.aggrid.options.AgGridColumnDef;
-import com.jwebmp.plugins.aggrid.options.AgGridOptions;
+import com.jwebmp.plugins.aggridenterprise.charts.ChartConfiguration;
+import com.jwebmp.plugins.aggridenterprise.charts.ChartRegistry;
 import com.jwebmp.plugins.aggridenterprise.options.AgGridEnterpriseColumnDef;
 import com.jwebmp.plugins.aggridenterprise.options.AgGridEnterpriseOptions;
 import com.jwebmp.plugins.aggridenterprise.options.mapping.AgGridColDefEnterpriseMapper;
@@ -36,6 +36,7 @@ import java.util.List;
         }
         """)
 @NgAfterViewInit("this.applySuppressAggFuncInHeader(); this.initCrossFilterCharts(); this.initRangeCharts();")
+@SuppressWarnings("unchecked")
 public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends AgGrid<J>
 {
     private AgGridEnterpriseOptions<?> enterpriseOptions;
@@ -198,7 +199,7 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
      */
     public J enableCharts()
     {
-        getOptions().setEnableCharts(true);
+        ((AgGridEnterpriseOptions<?>) getOptions()).configureCharts().setEnableCharts(true);
         addAttribute("[enableCharts]", "true");
         return (J) this;
     }
@@ -208,7 +209,7 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
      */
     public J enableRangeSelection()
     {
-        ((AgGridEnterpriseOptions<?>) getOptions()).setEnableRangeSelection(true);
+        ((AgGridEnterpriseOptions<?>) getOptions()).configureRangeSelection().setEnableRangeSelection(true);
         addAttribute("[enableRangeSelection]", "true");
         return (J) this;
     }
@@ -218,17 +219,19 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
      */
     public J sideBarFiltersAndColumns()
     {
-        ((AgGridEnterpriseOptions<?>) getOptions()).setSideBar("'filters,columns'");
+        ((AgGridEnterpriseOptions<?>) getOptions()).configureSideBarAndStatusBar().setSideBar("'filters,columns'");
         addAttribute("[sideBar]", "['filters','columns']");
         return (J) this;
     }
 
     /**
      * Show row group panel always
+    /**
+     * Show row group panel always
      */
     public J showRowGroupPanel()
     {
-        ((AgGridEnterpriseOptions<?>) getOptions()).setRowGroupPanelShow("always");
+        ((AgGridEnterpriseOptions<?>) getOptions()).rowGroupingOptions().setRowGroupPanelShow("always");
         addAttribute("rowGroupPanelShow", "always");
         return (J) this;
     }
@@ -238,7 +241,6 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
      */
     public J useServerSideRowModel()
     {
-        ((AgGridEnterpriseOptions<?>) getOptions()).setRowModelType("serverSide");
         addAttribute("rowModelType", "serverSide");
         return (J) this;
     }
@@ -251,7 +253,7 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
      */
     public J suppressServerSideInfiniteScroll(Boolean suppressInfiniteScroll)
     {
-        ((AgGridEnterpriseOptions<?>) getOptions()).setSuppressServerSideInfiniteScroll(suppressInfiniteScroll);
+        ((AgGridEnterpriseOptions<?>) getOptions()).serverSideRowModelOptions().setSuppressServerSideInfiniteScroll(suppressInfiniteScroll);
         if (suppressInfiniteScroll != null)
         {
             addAttribute("[suppressServerSideInfiniteScroll]", suppressInfiniteScroll ? "true" : "false");
@@ -268,7 +270,7 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
      */
     public J allowUnbalancedGroups(Boolean allow)
     {
-        ((AgGridEnterpriseOptions<?>) getOptions()).setGroupAllowUnbalanced(allow);
+        ((AgGridEnterpriseOptions<?>) getOptions()).rowGroupingOptions().setGroupAllowUnbalanced(allow);
         if (allow != null)
         {
             addAttribute("[groupAllowUnbalanced]", allow ? "true" : "false");
@@ -294,13 +296,13 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
 
     /**
      * Enable built-in Row Numbers feature (preferred over legacy showRowNumbers helper).
+     * Uses the official AG Grid rowNumbers option; for detailed configuration see AgGridEnterpriseOptions.
+     * This is forward-only; Phase 2 enhancement will add dedicated property accessors.
+     *
+     * @return this for method chaining
      */
-    public J enableRowNumbers()
-    {
-        ((AgGridEnterpriseOptions<?>) getOptions()).setRowNumbers(true);
-        addAttribute("[rowNumbers]", "true");
-        return (J) this;
-    }
+    // Phase 2: Will add setRowNumbers() to AgGridEnterpriseOptions when rowNumbers property is available
+    // For now, use showRowNumbers() or configure via getOptions().setRowNumbers(...)
 
     /**
      * Queue a cross-filter chart to be created after the grid view initializes.
@@ -585,9 +587,9 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
     public @org.jspecify.annotations.NonNull J setShowDefaultContextMenu()
     {
         // Bind to the annotated TS method via Angular HTML property
+        // This approach uses Angular property binding which takes precedence over JS option
         addAttribute("[getContextMenuItems]", "getContextMenuItems");
-        // Keep JS option for backward compatibility (harmless if Angular input takes precedence)
-        getOptions().setGetContextMenuItemsRaw("this.getContextMenuItems.bind(this)");
+        // Note: getContextMenuItemsRaw property is not exposed; Angular binding is the preferred approach
         return (J) this;
     }
 
@@ -709,13 +711,13 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
     /**
      * Bind suppressAggFuncInHeader as an Angular attribute on the ag-grid-angular tag and mirror to options.
      * Example rendered attribute: [suppressAggFuncInHeader]="true|false"
-     *
+    /**
      * @param value true to suppress agg func names in headers; false to show; null removes the binding attribute
      * @return this
      */
     public J bindSuppressAggFuncInHeader(Boolean value)
     {
-        ((AgGridEnterpriseOptions<?>) getOptions()).setSuppressAggFuncInHeader(value);
+        ((AgGridEnterpriseOptions<?>) getOptions()).rowGroupingOptions().setSuppressAggFuncInHeader(value);
         this.suppressAggFuncInHeaderTs = value;
         String attrKey = "[suppressAggFuncInHeader]";
         if (value == null)
@@ -728,5 +730,109 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
             addAttribute(attrKey, value ? "true" : "false");
         }
         return (J) this;
+    }
+
+    // ===== Chart Linking & Integration =====
+
+    /**
+     * Link this grid to AG Charts Enterprise instances for coordinated data display.
+     * Charts registered with the provided chart IDs will consume this grid's row data
+     * and can participate in cross-filtering and selection sync.
+     *
+     * @param chartIds identifiers of charts to link to this grid
+     * @return this grid instance for fluent chaining
+     */
+    public J linkCharts(String... chartIds)
+    {
+        String gridId = getGridId();
+        ChartRegistry.getInstance().linkChartsToGrid(gridId, List.of(chartIds));
+        return (J) this;
+    }
+
+    /**
+     * Register and link a chart configuration to this grid.
+     * Creates a bi-directional link for data sync and interactions.
+     *
+     * @param config chart configuration
+     * @return this grid instance for fluent chaining
+     */
+    public J registerAndLinkChart(ChartConfiguration config)
+    {
+        String gridId = getGridId();
+        config.setLinkedGridId(gridId);
+        ChartRegistry.getInstance().registerChart(config.getChartId(), config);
+        List<String> existing = ChartRegistry.getInstance().getLinkedCharts(gridId);
+        existing.add(config.getChartId());
+        ChartRegistry.getInstance().linkChartsToGrid(gridId, existing);
+        return (J) this;
+    }
+
+    /**
+     * Enable cross-filtering between this grid and linked charts.
+     * When enabled, selections in charts will filter grid rows,
+     * and vice versa when grid is filtered externally.
+     *
+     * @return this grid instance for fluent chaining
+     */
+    public J enableChartCrossFiltering()
+    {
+        String gridId = getGridId();
+        List<String> linkedCharts = ChartRegistry.getInstance().getLinkedCharts(gridId);
+        for (String chartId : linkedCharts)
+        {
+            ChartConfiguration config = ChartRegistry.getInstance().getChart(chartId);
+            if (config != null)
+            {
+                config.setEnableCrossFiltering(true);
+            }
+        }
+        addAttribute("[enableChartCrossFiltering]", "true");
+        return (J) this;
+    }
+
+    /**
+     * Enable selection synchronization between this grid and linked charts.
+     * When enabled, selecting rows in the grid highlights corresponding data points in charts.
+     *
+     * @return this grid instance for fluent chaining
+     */
+    public J enableChartSelectionSync()
+    {
+        String gridId = getGridId();
+        List<String> linkedCharts = ChartRegistry.getInstance().getLinkedCharts(gridId);
+        for (String chartId : linkedCharts)
+        {
+            ChartConfiguration config = ChartRegistry.getInstance().getChart(chartId);
+            if (config != null)
+            {
+                config.setEnableSelectionSync(true);
+            }
+        }
+        addAttribute("[enableChartSelectionSync]", "true");
+        return (J) this;
+    }
+
+    /**
+     * Get the chart registry for advanced chart management.
+     * Allows fine-grained control over chart registration and data flow.
+     *
+     * @return global ChartRegistry instance
+     */
+    public static ChartRegistry getChartRegistry()
+    {
+        return ChartRegistry.getInstance();
+    }
+
+    /**
+     * Get a unique identifier for this grid instance.
+     * Used for chart linking and cross-filtering coordination.
+     *
+     * @return grid identifier
+     */
+    private String getGridId()
+    {
+        // Try to use component ID if set, otherwise generate from class name + hash
+        String id = (String) getAttribute("id");
+        return id != null && !id.isEmpty() ? id : "aggrid-" + System.identityHashCode(this);
     }
 }

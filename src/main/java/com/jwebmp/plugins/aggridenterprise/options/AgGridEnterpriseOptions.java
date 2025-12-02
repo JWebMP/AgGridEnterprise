@@ -7,10 +7,6 @@ import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.jwebmp.plugins.aggrid.options.AgGridColumnDef;
 import com.jwebmp.plugins.aggrid.options.AgGridOptions;
-import com.jwebmp.plugins.aggridenterprise.options.enums.PivotPanelShow;
-import com.jwebmp.plugins.aggridenterprise.options.enums.RowGroupPanelShow;
-import com.jwebmp.plugins.aggridenterprise.options.enums.RowModelTypeEnterprise;
-import com.jwebmp.plugins.aggridenterprise.options.find.IFindOptions;
 import com.jwebmp.plugins.aggridenterprise.options.mapping.AgGridColDefEnterpriseMapper;
 import com.jwebmp.plugins.aggridenterprise.options.modules.AdvancedFilteringOptions;
 import com.jwebmp.plugins.aggridenterprise.options.modules.AggregationOptions;
@@ -21,11 +17,10 @@ import com.jwebmp.plugins.aggridenterprise.options.modules.RowGroupingOptions;
 import com.jwebmp.plugins.aggridenterprise.options.modules.ServerSideRowModelOptions;
 import com.jwebmp.plugins.aggridenterprise.options.modules.SideBarAndStatusBarOptions;
 
-import java.util.List;
-
 /**
  * Enterprise-only options layered on top of community AgGridOptions
  */
+@SuppressWarnings("unchecked")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> extends AgGridOptions<J>
@@ -125,7 +120,7 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
      *
      * @return ServerSideRowModelOptions module for fluent chaining
      */
-    public ServerSideRowModelOptions<?> configureServerSideRowModel()
+    public ServerSideRowModelOptions<?> serverSideRowModelOptions()
     {
         return serverSideRowModel;
     }
@@ -135,7 +130,7 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
      *
      * @return RowGroupingOptions module for fluent chaining
      */
-    public RowGroupingOptions<?> configureRowGrouping()
+    public RowGroupingOptions<?> rowGroupingOptions()
     {
         return rowGrouping;
     }

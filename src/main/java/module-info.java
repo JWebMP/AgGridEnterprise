@@ -17,6 +17,7 @@ module com.jwebmp.plugins.aggridenterprise {
     exports com.jwebmp.plugins.aggridenterprise.charts;
 
     requires transitive com.jwebmp.plugins.aggrid;
+    requires transitive com.jwebmp.plugins.agchartsenterprise;
 
     requires com.jwebmp.client;
     requires com.jwebmp.core;

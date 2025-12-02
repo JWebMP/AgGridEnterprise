@@ -2,8 +2,6 @@ package com.jwebmp.plugins.aggridenterprise.options.setfilter;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRawValue;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jwebmp.plugins.aggrid.options.filters.IFilterParams;
 
 import java.util.List;
