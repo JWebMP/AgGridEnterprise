@@ -194,22 +194,7 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     // All 83 enterprise properties replaced by 8 modular components above
     // JSON serialization remains identical via @JsonUnwrapped pattern
 
-    // ===== Inner Classes & Enums =====
-
-    public enum ToolPanelId
-    {
-        DATA("data"),
-        FORMAT("format"),
-        SETTINGS("settings");
-        private final String json;
-
-        ToolPanelId(String json) {this.json = json;}
-
-        public String getJson() {return json;}
-
-        @Override
-        public String toString() {return json;}
-    }
+    // ===== Inner Classes & Enums (extracted to separate files) =====
 
     /**
      * Strict object type for chartToolPanelsDef.
@@ -617,41 +602,7 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     }
 
     // ===== Internal helpers & enums for this options class =====
-
-    public enum GroupTotalRowPosition
-    {
-        TOP("top"),
-        BOTTOM("bottom");
-        private final String json;
-
-        GroupTotalRowPosition(String json) {this.json = json;}
-
-        public String getJson() {return json;}
-    }
-
-    public enum GrandTotalRowPosition
-    {
-        TOP("top"),
-        BOTTOM("bottom"),
-        PINNED_TOP("pinnedTop"),
-        PINNED_BOTTOM("pinnedBottom");
-        private final String json;
-
-        GrandTotalRowPosition(String json) {this.json = json;}
-
-        public String getJson() {return json;}
-    }
-
-    public enum StickyTotalRowSuppression
-    {
-        GRAND("grand"),
-        GROUP("group");
-        private final String json;
-
-        StickyTotalRowSuppression(String json) {this.json = json;}
-
-        public String getJson() {return json;}
-    }
+    // (All enums extracted to separate files for better organization)
 
     /**
      * Simple wrapper to serialize raw JavaScript using the existing JavascriptFunction infrastructure.
@@ -758,37 +709,7 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     @JsonProperty("ssrmExpandAllAffectsAllRows")
     private Boolean ssrmExpandAllAffectsAllRows;
 
-    // ===== Enums for new options =====
-
-    public enum RowGroupingDisplayType
-    {
-        SINGLE_COLUMN("singleColumn"),
-        MULTIPLE_COLUMNS("multipleColumns"),
-        GROUP_ROWS("groupRows"),
-        CUSTOM("custom");
-        private final String json;
-
-        RowGroupingDisplayType(String json) {this.json = json;}
-
-        public String getJson() {return json;}
-
-        @Override
-        public String toString() {return json;}
-    }
-
-    public enum SuppressGroupChangesColumnVisibilityMode
-    {
-        SUPPRESS_HIDE_ON_GROUP("suppressHideOnGroup"),
-        SUPPRESS_SHOW_ON_UNGROUP("suppressShowOnUngroup");
-        private final String json;
-
-        SuppressGroupChangesColumnVisibilityMode(String json) {this.json = json;}
-
-        public String getJson() {return json;}
-
-        @Override
-        public String toString() {return json;}
-    }
+    // ===== Enums for new options (extracted to separate files) =====
 
     // ===== Getters / Setters for new options =====
 
@@ -1214,19 +1135,6 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
 
     @JsonProperty("pivotDefaultExpanded")
     private Integer pivotDefaultExpanded;
-
-    public enum PivotRowTotalsPosition
-    {
-        BEFORE("before"), AFTER("after");
-        private final String json;
-
-        PivotRowTotalsPosition(String j) {this.json = j;}
-
-        public String getJson() {return json;}
-
-        @Override
-        public String toString() {return json;}
-    }
 
     @JsonProperty("pivotRowTotals")
     private String pivotRowTotals;
