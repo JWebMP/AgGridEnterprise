@@ -16,6 +16,7 @@ import com.jwebmp.plugins.aggridenterprise.options.modules.RangeSelectionOptions
 import com.jwebmp.plugins.aggridenterprise.options.modules.RowGroupingOptions;
 import com.jwebmp.plugins.aggridenterprise.options.modules.ServerSideRowModelOptions;
 import com.jwebmp.plugins.aggridenterprise.options.modules.SideBarAndStatusBarOptions;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Enterprise-only options layered on top of community AgGridOptions
@@ -708,12 +709,12 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
 
     // ===== Getters / Setters for new options =====
 
-    public String getGroupDisplayType()
+    public @Nullable String getGroupDisplayType()
     {
         return groupDisplayType;
     }
 
-    public @org.jspecify.annotations.NonNull J setGroupDisplayType(String type)
+    public @org.jspecify.annotations.NonNull J setGroupDisplayType(@Nullable String type)
     {
         this.groupDisplayType = type;
         return (J) this;
@@ -725,62 +726,62 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
         return (J) this;
     }
 
-    public Object getGroupRowRenderer()
+    public @Nullable Object getGroupRowRenderer()
     {
         return groupRowRenderer;
     }
 
-    public @org.jspecify.annotations.NonNull J setGroupRowRenderer(Object renderer)
+    public @org.jspecify.annotations.NonNull J setGroupRowRenderer(@Nullable Object renderer)
     {
         this.groupRowRenderer = renderer;
         return (J) this;
     }
 
-    public Object getGroupRowRendererParams()
+    public @Nullable Object getGroupRowRendererParams()
     {
         return groupRowRendererParams;
     }
 
-    public @org.jspecify.annotations.NonNull J setGroupRowRendererParams(Object params)
+    public @org.jspecify.annotations.NonNull J setGroupRowRendererParams(@Nullable Object params)
     {
         this.groupRowRendererParams = params;
         return (J) this;
     }
 
-    public Boolean getShowOpenedGroup()
+    public @Nullable Boolean getShowOpenedGroup()
     {
         return showOpenedGroup;
     }
 
-    public @org.jspecify.annotations.NonNull J setShowOpenedGroup(Boolean showOpenedGroup)
+    public @org.jspecify.annotations.NonNull J setShowOpenedGroup(@Nullable Boolean showOpenedGroup)
     {
         this.showOpenedGroup = showOpenedGroup;
         return (J) this;
     }
 
-    public Boolean getGroupMaintainOrder()
+    public @Nullable Boolean getGroupMaintainOrder()
     {
         return groupMaintainOrder;
     }
 
-    public @org.jspecify.annotations.NonNull J setGroupMaintainOrder(Boolean groupMaintainOrder)
+    public @org.jspecify.annotations.NonNull J setGroupMaintainOrder(@Nullable Boolean groupMaintainOrder)
     {
         this.groupMaintainOrder = groupMaintainOrder;
         return (J) this;
     }
 
-    public Integer getGroupDefaultExpanded()
+    public @Nullable Integer getGroupDefaultExpanded()
     {
         return groupDefaultExpanded;
     }
 
-    public @org.jspecify.annotations.NonNull J setGroupDefaultExpanded(Integer groupDefaultExpanded)
+    public @org.jspecify.annotations.NonNull J setGroupDefaultExpanded(@Nullable Integer groupDefaultExpanded)
     {
         this.groupDefaultExpanded = groupDefaultExpanded;
         return (J) this;
     }
 
-    public Object getIsGroupOpenByDefault()
+    public @Nullable Object getIsGroupOpenByDefault()
     {
         return isGroupOpenByDefault;
     }
@@ -789,13 +790,13 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
      * Set a raw JavaScript function for isGroupOpenByDefault.
      * Example: "params => params.rowNode.level < 1".
      */
-    public @org.jspecify.annotations.NonNull J setIsGroupOpenByDefault(String rawJsFunction)
+    public @org.jspecify.annotations.NonNull J setIsGroupOpenByDefault(@Nullable String rawJsFunction)
     {
         this.isGroupOpenByDefault = rawJsFunction == null ? null : new RawJsFunction(rawJsFunction);
         return (J) this;
     }
 
-    public Object getInitialGroupOrderComparator()
+    public @Nullable Object getInitialGroupOrderComparator()
     {
         return initialGroupOrderComparator;
     }
@@ -804,57 +805,57 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
      * Set a raw JavaScript comparator for initial group order.
      * Example: "(a,b) => a.key.localeCompare(b.key)".
      */
-    public @org.jspecify.annotations.NonNull J setInitialGroupOrderComparator(String rawJsFunction)
+    public @org.jspecify.annotations.NonNull J setInitialGroupOrderComparator(@Nullable String rawJsFunction)
     {
         this.initialGroupOrderComparator = rawJsFunction == null ? null : new RawJsFunction(rawJsFunction);
         return (J) this;
     }
 
-    public Boolean getSuppressGroupRowsSticky()
+    public @Nullable Boolean getSuppressGroupRowsSticky()
     {
         return suppressGroupRowsSticky;
     }
 
-    public @org.jspecify.annotations.NonNull J setSuppressGroupRowsSticky(Boolean suppressGroupRowsSticky)
+    public @org.jspecify.annotations.NonNull J setSuppressGroupRowsSticky(@Nullable Boolean suppressGroupRowsSticky)
     {
         this.suppressGroupRowsSticky = suppressGroupRowsSticky;
         return (J) this;
     }
 
-    public Boolean getRowGroupPanelSuppressSort()
+    public @Nullable Boolean getRowGroupPanelSuppressSort()
     {
         return rowGroupPanelSuppressSort;
     }
 
-    public @org.jspecify.annotations.NonNull J setRowGroupPanelSuppressSort(Boolean rowGroupPanelSuppressSort)
+    public @org.jspecify.annotations.NonNull J setRowGroupPanelSuppressSort(@Nullable Boolean rowGroupPanelSuppressSort)
     {
         this.rowGroupPanelSuppressSort = rowGroupPanelSuppressSort;
         return (J) this;
     }
 
-    public Integer getGroupLockGroupColumns()
+    public @Nullable Integer getGroupLockGroupColumns()
     {
         return groupLockGroupColumns;
     }
 
-    public @org.jspecify.annotations.NonNull J setGroupLockGroupColumns(Integer groupLockGroupColumns)
+    public @org.jspecify.annotations.NonNull J setGroupLockGroupColumns(@Nullable Integer groupLockGroupColumns)
     {
         this.groupLockGroupColumns = groupLockGroupColumns;
         return (J) this;
     }
 
-    public Boolean getSuppressDragLeaveHidesColumns()
+    public @Nullable Boolean getSuppressDragLeaveHidesColumns()
     {
         return suppressDragLeaveHidesColumns;
     }
 
-    public @org.jspecify.annotations.NonNull J setSuppressDragLeaveHidesColumns(Boolean suppressDragLeaveHidesColumns)
+    public @org.jspecify.annotations.NonNull J setSuppressDragLeaveHidesColumns(@Nullable Boolean suppressDragLeaveHidesColumns)
     {
         this.suppressDragLeaveHidesColumns = suppressDragLeaveHidesColumns;
         return (J) this;
     }
 
-    public Object getSuppressGroupChangesColumnVisibility()
+    public @Nullable Object getSuppressGroupChangesColumnVisibility()
     {
         return suppressGroupChangesColumnVisibility;
     }
@@ -865,18 +866,18 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
         return (J) this;
     }
 
-    public @org.jspecify.annotations.NonNull J setSuppressGroupChangesColumnVisibility(SuppressGroupChangesColumnVisibilityMode mode)
+    public @org.jspecify.annotations.NonNull J setSuppressGroupChangesColumnVisibility(@Nullable SuppressGroupChangesColumnVisibilityMode mode)
     {
         this.suppressGroupChangesColumnVisibility = mode == null ? null : mode.getJson();
         return (J) this;
     }
 
-    public Boolean getSsrmExpandAllAffectsAllRows()
+    public @Nullable Boolean getSsrmExpandAllAffectsAllRows()
     {
         return ssrmExpandAllAffectsAllRows;
     }
 
-    public @org.jspecify.annotations.NonNull J setSsrmExpandAllAffectsAllRows(Boolean ssrmExpandAllAffectsAllRows)
+    public @org.jspecify.annotations.NonNull J setSsrmExpandAllAffectsAllRows(@Nullable Boolean ssrmExpandAllAffectsAllRows)
     {
         this.ssrmExpandAllAffectsAllRows = ssrmExpandAllAffectsAllRows;
         return (J) this;
@@ -958,145 +959,145 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     @JsonProperty("suppressChartToolPanelsButton")
     private Boolean suppressChartToolPanelsButton;
 
-    public String getServerSideDatasource() {return serverSideDatasource;}
+    public @Nullable String getServerSideDatasource() {return serverSideDatasource;}
 
-    public @org.jspecify.annotations.NonNull J setServerSideDatasourceRaw(String rawJs)
+    public @org.jspecify.annotations.NonNull J setServerSideDatasourceRaw(@Nullable String rawJs)
     {
         this.serverSideDatasource = rawJs;
         return (J) this;
     }
 
-    public Integer getSsrmCacheBlockSize() {return ssrmCacheBlockSize;}
+    public @Nullable Integer getSsrmCacheBlockSize() {return ssrmCacheBlockSize;}
 
-    public @org.jspecify.annotations.NonNull J setSsrmCacheBlockSize(Integer v)
+    public @org.jspecify.annotations.NonNull J setSsrmCacheBlockSize(@Nullable Integer v)
     {
         this.ssrmCacheBlockSize = v;
         return (J) this;
     }
 
-    public Integer getSsrmMaxBlocksInCache() {return ssrmMaxBlocksInCache;}
+    public @Nullable Integer getSsrmMaxBlocksInCache() {return ssrmMaxBlocksInCache;}
 
-    public @org.jspecify.annotations.NonNull J setSsrmMaxBlocksInCache(Integer v)
+    public @org.jspecify.annotations.NonNull J setSsrmMaxBlocksInCache(@Nullable Integer v)
     {
         this.ssrmMaxBlocksInCache = v;
         return (J) this;
     }
 
-    public Integer getSsrmMaxConcurrentDatasourceRequests() {return ssrmMaxConcurrentDatasourceRequests;}
+    public @Nullable Integer getSsrmMaxConcurrentDatasourceRequests() {return ssrmMaxConcurrentDatasourceRequests;}
 
-    public @org.jspecify.annotations.NonNull J setSsrmMaxConcurrentDatasourceRequests(Integer v)
+    public @org.jspecify.annotations.NonNull J setSsrmMaxConcurrentDatasourceRequests(@Nullable Integer v)
     {
         this.ssrmMaxConcurrentDatasourceRequests = v;
         return (J) this;
     }
 
-    public Integer getBlockLoadDebounceMillis() {return blockLoadDebounceMillis;}
+    public @Nullable Integer getBlockLoadDebounceMillis() {return blockLoadDebounceMillis;}
 
-    public @org.jspecify.annotations.NonNull J setBlockLoadDebounceMillis(Integer v)
+    public @org.jspecify.annotations.NonNull J setBlockLoadDebounceMillis(@Nullable Integer v)
     {
         this.blockLoadDebounceMillis = v;
         return (J) this;
     }
 
-    public Boolean getSuppressServerSideFullWidthLoadingRow() {return suppressServerSideFullWidthLoadingRow;}
+    public @Nullable Boolean getSuppressServerSideFullWidthLoadingRow() {return suppressServerSideFullWidthLoadingRow;}
 
-    public @org.jspecify.annotations.NonNull J setSuppressServerSideFullWidthLoadingRow(Boolean v)
+    public @org.jspecify.annotations.NonNull J setSuppressServerSideFullWidthLoadingRow(@Nullable Boolean v)
     {
         this.suppressServerSideFullWidthLoadingRow = v;
         return (J) this;
     }
 
-    public Boolean getPurgeClosedRowNodes() {return purgeClosedRowNodes;}
+    public @Nullable Boolean getPurgeClosedRowNodes() {return purgeClosedRowNodes;}
 
-    public @org.jspecify.annotations.NonNull J setPurgeClosedRowNodes(Boolean v)
+    public @org.jspecify.annotations.NonNull J setPurgeClosedRowNodes(@Nullable Boolean v)
     {
         this.purgeClosedRowNodes = v;
         return (J) this;
     }
 
-    public String getServerSidePivotResultFieldSeparator() {return serverSidePivotResultFieldSeparator;}
+    public @Nullable String getServerSidePivotResultFieldSeparator() {return serverSidePivotResultFieldSeparator;}
 
-    public @org.jspecify.annotations.NonNull J setServerSidePivotResultFieldSeparator(String v)
+    public @org.jspecify.annotations.NonNull J setServerSidePivotResultFieldSeparator(@Nullable String v)
     {
         this.serverSidePivotResultFieldSeparator = v;
         return (J) this;
     }
 
-    public Boolean getServerSideSortAllLevels() {return serverSideSortAllLevels;}
+    public @Nullable Boolean getServerSideSortAllLevels() {return serverSideSortAllLevels;}
 
-    public @org.jspecify.annotations.NonNull J setServerSideSortAllLevels(Boolean v)
+    public @org.jspecify.annotations.NonNull J setServerSideSortAllLevels(@Nullable Boolean v)
     {
         this.serverSideSortAllLevels = v;
         return (J) this;
     }
 
-    public Boolean getServerSideEnableClientSideSort() {return serverSideEnableClientSideSort;}
+    public @Nullable Boolean getServerSideEnableClientSideSort() {return serverSideEnableClientSideSort;}
 
-    public @org.jspecify.annotations.NonNull J setServerSideEnableClientSideSort(Boolean v)
+    public @org.jspecify.annotations.NonNull J setServerSideEnableClientSideSort(@Nullable Boolean v)
     {
         this.serverSideEnableClientSideSort = v;
         return (J) this;
     }
 
-    public Boolean getServerSideOnlyRefreshFilteredGroups() {return serverSideOnlyRefreshFilteredGroups;}
+    public @Nullable Boolean getServerSideOnlyRefreshFilteredGroups() {return serverSideOnlyRefreshFilteredGroups;}
 
-    public @org.jspecify.annotations.NonNull J setServerSideOnlyRefreshFilteredGroups(Boolean v)
+    public @org.jspecify.annotations.NonNull J setServerSideOnlyRefreshFilteredGroups(@Nullable Boolean v)
     {
         this.serverSideOnlyRefreshFilteredGroups = v;
         return (J) this;
     }
 
-    public Integer getServerSideInitialRowCount() {return serverSideInitialRowCount;}
+    public @Nullable Integer getServerSideInitialRowCount() {return serverSideInitialRowCount;}
 
-    public @org.jspecify.annotations.NonNull J setServerSideInitialRowCount(Integer v)
+    public @org.jspecify.annotations.NonNull J setServerSideInitialRowCount(@Nullable Integer v)
     {
         this.serverSideInitialRowCount = v;
         return (J) this;
     }
 
-    public String getGetChildCount() {return getChildCount;}
+    public @Nullable String getGetChildCount() {return getChildCount;}
 
-    public @org.jspecify.annotations.NonNull J setGetChildCountRaw(String rawJs)
+    public @org.jspecify.annotations.NonNull J setGetChildCountRaw(@Nullable String rawJs)
     {
         this.getChildCount = rawJs;
         return (J) this;
     }
 
-    public String getGetServerSideGroupLevelParams() {return getServerSideGroupLevelParams;}
+    public @Nullable String getGetServerSideGroupLevelParams() {return getServerSideGroupLevelParams;}
 
-    public @org.jspecify.annotations.NonNull J setGetServerSideGroupLevelParamsRaw(String rawJs)
+    public @org.jspecify.annotations.NonNull J setGetServerSideGroupLevelParamsRaw(@Nullable String rawJs)
     {
         this.getServerSideGroupLevelParams = rawJs;
         return (J) this;
     }
 
-    public String getIsServerSideGroupOpenByDefault() {return isServerSideGroupOpenByDefault;}
+    public @Nullable String getIsServerSideGroupOpenByDefault() {return isServerSideGroupOpenByDefault;}
 
-    public @org.jspecify.annotations.NonNull J setIsServerSideGroupOpenByDefaultRaw(String rawJs)
+    public @org.jspecify.annotations.NonNull J setIsServerSideGroupOpenByDefaultRaw(@Nullable String rawJs)
     {
         this.isServerSideGroupOpenByDefault = rawJs;
         return (J) this;
     }
 
-    public String getIsApplyServerSideTransaction() {return isApplyServerSideTransaction;}
+    public @Nullable String getIsApplyServerSideTransaction() {return isApplyServerSideTransaction;}
 
-    public @org.jspecify.annotations.NonNull J setIsApplyServerSideTransactionRaw(String rawJs)
+    public @org.jspecify.annotations.NonNull J setIsApplyServerSideTransactionRaw(@Nullable String rawJs)
     {
         this.isApplyServerSideTransaction = rawJs;
         return (J) this;
     }
 
-    public String getIsServerSideGroup() {return isServerSideGroup;}
+    public @Nullable String getIsServerSideGroup() {return isServerSideGroup;}
 
-    public @org.jspecify.annotations.NonNull J setIsServerSideGroupRaw(String rawJs)
+    public @org.jspecify.annotations.NonNull J setIsServerSideGroupRaw(@Nullable String rawJs)
     {
         this.isServerSideGroup = rawJs;
         return (J) this;
     }
 
-    public String getGetServerSideGroupKey() {return getServerSideGroupKey;}
+    public @Nullable String getGetServerSideGroupKey() {return getServerSideGroupKey;}
 
-    public @org.jspecify.annotations.NonNull J setGetServerSideGroupKeyRaw(String rawJs)
+    public @org.jspecify.annotations.NonNull J setGetServerSideGroupKeyRaw(@Nullable String rawJs)
     {
         this.getServerSideGroupKey = rawJs;
         return (J) this;
@@ -1105,9 +1106,9 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     /**
      * AG Grid v34.2.0: Suppress infinite scrolling in server-side row model (enabled by default).
      */
-    public Boolean getSuppressServerSideInfiniteScroll() {return suppressServerSideInfiniteScroll;}
+    public @Nullable Boolean getSuppressServerSideInfiniteScroll() {return suppressServerSideInfiniteScroll;}
 
-    public @org.jspecify.annotations.NonNull J setSuppressServerSideInfiniteScroll(Boolean v)
+    public @org.jspecify.annotations.NonNull J setSuppressServerSideInfiniteScroll(@Nullable Boolean v)
     {
         this.suppressServerSideInfiniteScroll = v;
         return (J) this;
@@ -1116,9 +1117,9 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     /**
      * AG Grid v34.2.0: Suppress chart tool panels button visibility (visible by default in v34).
      */
-    public Boolean getSuppressChartToolPanelsButton() {return suppressChartToolPanelsButton;}
+    public @Nullable Boolean getSuppressChartToolPanelsButton() {return suppressChartToolPanelsButton;}
 
-    public @org.jspecify.annotations.NonNull J setSuppressChartToolPanelsButton(Boolean v)
+    public @org.jspecify.annotations.NonNull J setSuppressChartToolPanelsButton(@Nullable Boolean v)
     {
         this.suppressChartToolPanelsButton = v;
         return (J) this;
@@ -1161,95 +1162,95 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     @JsonProperty("removePivotHeaderRowWhenSingleValueColumn")
     private Boolean removePivotHeaderRowWhenSingleValueColumn;
 
-    public Boolean getPivotMode() {return pivotMode;}
+    public @Nullable Boolean getPivotMode() {return pivotMode;}
 
-    public @org.jspecify.annotations.NonNull J setPivotMode(Boolean v)
+    public @org.jspecify.annotations.NonNull J setPivotMode(@Nullable Boolean v)
     {
         this.pivotMode = v;
         return (J) this;
     }
 
-    public Integer getPivotDefaultExpanded() {return pivotDefaultExpanded;}
+    public @Nullable Integer getPivotDefaultExpanded() {return pivotDefaultExpanded;}
 
-    public @org.jspecify.annotations.NonNull J setPivotDefaultExpanded(Integer v)
+    public @org.jspecify.annotations.NonNull J setPivotDefaultExpanded(@Nullable Integer v)
     {
         this.pivotDefaultExpanded = v;
         return (J) this;
     }
 
-    public String getPivotRowTotals() {return pivotRowTotals;}
+    public @Nullable String getPivotRowTotals() {return pivotRowTotals;}
 
-    public @org.jspecify.annotations.NonNull J setPivotRowTotals(String v)
+    public @org.jspecify.annotations.NonNull J setPivotRowTotals(@Nullable String v)
     {
         this.pivotRowTotals = v;
         return (J) this;
     }
 
-    public @org.jspecify.annotations.NonNull J setPivotRowTotals(PivotRowTotalsPosition pos)
+    public @org.jspecify.annotations.NonNull J setPivotRowTotals(@Nullable PivotRowTotalsPosition pos)
     {
         this.pivotRowTotals = pos == null ? null : pos.getJson();
         return (J) this;
     }
 
-    public Boolean getPivotSuppressAutoColumn() {return pivotSuppressAutoColumn;}
+    public @Nullable Boolean getPivotSuppressAutoColumn() {return pivotSuppressAutoColumn;}
 
-    public @org.jspecify.annotations.NonNull J setPivotSuppressAutoColumn(Boolean v)
+    public @org.jspecify.annotations.NonNull J setPivotSuppressAutoColumn(@Nullable Boolean v)
     {
         this.pivotSuppressAutoColumn = v;
         return (J) this;
     }
 
-    public Integer getPivotMaxGeneratedColumns() {return pivotMaxGeneratedColumns;}
+    public @Nullable Integer getPivotMaxGeneratedColumns() {return pivotMaxGeneratedColumns;}
 
-    public @org.jspecify.annotations.NonNull J setPivotMaxGeneratedColumns(Integer v)
+    public @org.jspecify.annotations.NonNull J setPivotMaxGeneratedColumns(@Nullable Integer v)
     {
         this.pivotMaxGeneratedColumns = v;
         return (J) this;
     }
 
-    public String getOnPivotMaxColumnsExceeded() {return onPivotMaxColumnsExceeded;}
+    public @Nullable String getOnPivotMaxColumnsExceeded() {return onPivotMaxColumnsExceeded;}
 
-    public @org.jspecify.annotations.NonNull J setOnPivotMaxColumnsExceededRaw(String rawJs)
+    public @org.jspecify.annotations.NonNull J setOnPivotMaxColumnsExceededRaw(@Nullable String rawJs)
     {
         this.onPivotMaxColumnsExceeded = rawJs;
         return (J) this;
     }
 
-    public String getProcessPivotResultColDef() {return processPivotResultColDef;}
+    public @Nullable String getProcessPivotResultColDef() {return processPivotResultColDef;}
 
-    public @org.jspecify.annotations.NonNull J setProcessPivotResultColDefRaw(String rawJs)
+    public @org.jspecify.annotations.NonNull J setProcessPivotResultColDefRaw(@Nullable String rawJs)
     {
         this.processPivotResultColDef = rawJs;
         return (J) this;
     }
 
-    public String getProcessPivotResultColGroupDef() {return processPivotResultColGroupDef;}
+    public @Nullable String getProcessPivotResultColGroupDef() {return processPivotResultColGroupDef;}
 
-    public @org.jspecify.annotations.NonNull J setProcessPivotResultColGroupDefRaw(String rawJs)
+    public @org.jspecify.annotations.NonNull J setProcessPivotResultColGroupDefRaw(@Nullable String rawJs)
     {
         this.processPivotResultColGroupDef = rawJs;
         return (J) this;
     }
 
-    public Boolean getSuppressExpandablePivotGroups() {return suppressExpandablePivotGroups;}
+    public @Nullable Boolean getSuppressExpandablePivotGroups() {return suppressExpandablePivotGroups;}
 
-    public @org.jspecify.annotations.NonNull J setSuppressExpandablePivotGroups(Boolean v)
+    public @org.jspecify.annotations.NonNull J setSuppressExpandablePivotGroups(@Nullable Boolean v)
     {
         this.suppressExpandablePivotGroups = v;
         return (J) this;
     }
 
-    public Boolean getFunctionsReadOnly() {return functionsReadOnly;}
+    public @Nullable Boolean getFunctionsReadOnly() {return functionsReadOnly;}
 
-    public @org.jspecify.annotations.NonNull J setFunctionsReadOnly(Boolean v)
+    public @org.jspecify.annotations.NonNull J setFunctionsReadOnly(@Nullable Boolean v)
     {
         this.functionsReadOnly = v;
         return (J) this;
     }
 
-    public Boolean getRemovePivotHeaderRowWhenSingleValueColumn() {return removePivotHeaderRowWhenSingleValueColumn;}
+    public @Nullable Boolean getRemovePivotHeaderRowWhenSingleValueColumn() {return removePivotHeaderRowWhenSingleValueColumn;}
 
-    public @org.jspecify.annotations.NonNull J setRemovePivotHeaderRowWhenSingleValueColumn(Boolean v)
+    public @org.jspecify.annotations.NonNull J setRemovePivotHeaderRowWhenSingleValueColumn(@Nullable Boolean v)
     {
         this.removePivotHeaderRowWhenSingleValueColumn = v;
         return (J) this;
@@ -1286,33 +1287,33 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     @JsonProperty("advancedFilterParams")
     private Object advancedFilterParams;
 
-    public Boolean getEnableAdvancedFilter() {return enableAdvancedFilter;}
+    public @Nullable Boolean getEnableAdvancedFilter() {return enableAdvancedFilter;}
 
-    public @org.jspecify.annotations.NonNull J setEnableAdvancedFilter(Boolean enableAdvancedFilter)
+    public @org.jspecify.annotations.NonNull J setEnableAdvancedFilter(@Nullable Boolean enableAdvancedFilter)
     {
         this.enableAdvancedFilter = enableAdvancedFilter;
         return (J) this;
     }
 
-    public Boolean getIncludeHiddenColumnsInAdvancedFilter() {return includeHiddenColumnsInAdvancedFilter;}
+    public @Nullable Boolean getIncludeHiddenColumnsInAdvancedFilter() {return includeHiddenColumnsInAdvancedFilter;}
 
-    public @org.jspecify.annotations.NonNull J setIncludeHiddenColumnsInAdvancedFilter(Boolean includeHiddenColumnsInAdvancedFilter)
+    public @org.jspecify.annotations.NonNull J setIncludeHiddenColumnsInAdvancedFilter(@Nullable Boolean includeHiddenColumnsInAdvancedFilter)
     {
         this.includeHiddenColumnsInAdvancedFilter = includeHiddenColumnsInAdvancedFilter;
         return (J) this;
     }
 
-    public Object getAdvancedFilterParent() {return advancedFilterParent;}
+    public @Nullable Object getAdvancedFilterParent() {return advancedFilterParent;}
 
-    public @org.jspecify.annotations.NonNull J setAdvancedFilterParent(Object advancedFilterParent)
+    public @org.jspecify.annotations.NonNull J setAdvancedFilterParent(@Nullable Object advancedFilterParent)
     {
         this.advancedFilterParent = advancedFilterParent;
         return (J) this;
     }
 
-    public Object getAdvancedFilterBuilderParams() {return advancedFilterBuilderParams;}
+    public @Nullable Object getAdvancedFilterBuilderParams() {return advancedFilterBuilderParams;}
 
-    public @org.jspecify.annotations.NonNull J setAdvancedFilterBuilderParams(Object advancedFilterBuilderParams)
+    public @org.jspecify.annotations.NonNull J setAdvancedFilterBuilderParams(@Nullable Object advancedFilterBuilderParams)
     {
         this.advancedFilterBuilderParams = advancedFilterBuilderParams;
         return (J) this;
@@ -1327,9 +1328,9 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
         return (J) this;
     }
 
-    public Object getAdvancedFilterParams() {return advancedFilterParams;}
+    public @Nullable Object getAdvancedFilterParams() {return advancedFilterParams;}
 
-    public @org.jspecify.annotations.NonNull J setAdvancedFilterParams(Object advancedFilterParams)
+    public @org.jspecify.annotations.NonNull J setAdvancedFilterParams(@Nullable Object advancedFilterParams)
     {
         this.advancedFilterParams = advancedFilterParams;
         return (J) this;
@@ -1371,25 +1372,25 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     @JsonProperty("chartMenuItems")
     private Object chartMenuItems;
 
-    public String getGetChartToolbarItems() {return getChartToolbarItems;}
+    public @Nullable String getGetChartToolbarItems() {return getChartToolbarItems;}
 
-    public @org.jspecify.annotations.NonNull J setGetChartToolbarItemsRaw(String rawJs)
+    public @org.jspecify.annotations.NonNull J setGetChartToolbarItemsRaw(@Nullable String rawJs)
     {
         this.getChartToolbarItems = rawJs;
         return (J) this;
     }
 
-    public String getCreateChartContainer() {return createChartContainer;}
+    public @Nullable String getCreateChartContainer() {return createChartContainer;}
 
-    public @org.jspecify.annotations.NonNull J setCreateChartContainerRaw(String rawJs)
+    public @org.jspecify.annotations.NonNull J setCreateChartContainerRaw(@Nullable String rawJs)
     {
         this.createChartContainer = rawJs;
         return (J) this;
     }
 
-    public Object getCustomChartThemes() {return customChartThemes;}
+    public @Nullable Object getCustomChartThemes() {return customChartThemes;}
 
-    public @org.jspecify.annotations.NonNull J setCustomChartThemes(Object customChartThemes)
+    public @org.jspecify.annotations.NonNull J setCustomChartThemes(@Nullable Object customChartThemes)
     {
         this.customChartThemes = customChartThemes;
         return (J) this;
@@ -1399,18 +1400,18 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
      * Provide custom chart themes as a raw TypeScript/JSON literal string mapping theme names to themes.
      * This preserves callbacks in overrides and allows referencing AG Charts options directly.
      */
-    public @org.jspecify.annotations.NonNull J setCustomChartThemesRaw(String rawLiteral)
+    public @org.jspecify.annotations.NonNull J setCustomChartThemesRaw(@Nullable String rawLiteral)
     {
         this.customChartThemes = rawLiteral == null ? null : new RawJsFunction(rawLiteral);
         return (J) this;
     }
 
-    public Object getChartMenuItems() {return chartMenuItems;}
+    public @Nullable Object getChartMenuItems() {return chartMenuItems;}
 
     /**
      * Accepts either an array of items or a raw JavaScript function (via setChartMenuItemsRaw).
      */
-    public @org.jspecify.annotations.NonNull J setChartMenuItems(Object chartMenuItems)
+    public @org.jspecify.annotations.NonNull J setChartMenuItems(@Nullable Object chartMenuItems)
     {
         this.chartMenuItems = chartMenuItems;
         return (J) this;
@@ -1419,7 +1420,7 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     /**
      * Provide a raw JavaScript function for chartMenuItems.
      */
-    public @org.jspecify.annotations.NonNull J setChartMenuItemsRaw(String rawJs)
+    public @org.jspecify.annotations.NonNull J setChartMenuItemsRaw(@Nullable String rawJs)
     {
         this.chartMenuItems = rawJs == null ? null : new RawJsFunction(rawJs);
         return (J) this;

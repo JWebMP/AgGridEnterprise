@@ -64,6 +64,12 @@ public class CreateRangeChartParams extends JavaScriptPart<CreateRangeChartParam
     @JsonRawValue
     private String chartContainerRaw;
 
+    /**
+     * Configuration for dynamic series coloring based on data values
+     */
+    @JsonProperty("seriesColorConfig")
+    private SeriesColorConfiguration seriesColorConfig;
+
     public String getChartType()
     {
         return chartType;
@@ -170,6 +176,87 @@ public class CreateRangeChartParams extends JavaScriptPart<CreateRangeChartParam
     public CreateRangeChartParams setChartContainerTs(String chartContainerTsExpression)
     {
         this.chartContainerRaw = chartContainerTsExpression;
+        return this;
+    }
+
+    public SeriesColorConfiguration getSeriesColorConfig()
+    {
+        return seriesColorConfig;
+    }
+
+    public CreateRangeChartParams setSeriesColorConfig(SeriesColorConfiguration seriesColorConfig)
+    {
+        this.seriesColorConfig = seriesColorConfig;
+        return this;
+    }
+
+    /**
+     * Convenience method to enable VALUE_GRADIENT series coloring.
+     * Colors smoothly transition from minColor to maxColor based on data values.
+     */
+    public CreateRangeChartParams setValueGradientColors(String minColor, String maxColor)
+    {
+        if (this.seriesColorConfig == null)
+        {
+            this.seriesColorConfig = new SeriesColorConfiguration();
+        }
+        this.seriesColorConfig.setValueGradientColors(minColor, maxColor);
+        return this;
+    }
+
+    /**
+     * Convenience method to enable VALUE_RANGE series coloring.
+     * Maps specific value thresholds to corresponding colors.
+     */
+    public CreateRangeChartParams setValueRangeColors(Map<Number, String> thresholds)
+    {
+        if (this.seriesColorConfig == null)
+        {
+            this.seriesColorConfig = new SeriesColorConfiguration();
+        }
+        this.seriesColorConfig.setValueRangeColors(thresholds);
+        return this;
+    }
+
+    /**
+     * Convenience method to enable POSITIVE_NEGATIVE series coloring.
+     * Uses specified colors for positive and negative values.
+     */
+    public CreateRangeChartParams setPositiveNegativeColors(String positiveColor, String negativeColor)
+    {
+        if (this.seriesColorConfig == null)
+        {
+            this.seriesColorConfig = new SeriesColorConfiguration();
+        }
+        this.seriesColorConfig.setPositiveNegativeColors(positiveColor, negativeColor);
+        return this;
+    }
+
+    /**
+     * Convenience method to enable POSITIVE_NEGATIVE series coloring with zero color.
+     * Uses specified colors for positive, negative, and zero values.
+     */
+    public CreateRangeChartParams setPositiveNegativeColors(String positiveColor, String negativeColor, String zeroColor)
+    {
+        if (this.seriesColorConfig == null)
+        {
+            this.seriesColorConfig = new SeriesColorConfiguration();
+        }
+        this.seriesColorConfig.setPositiveNegativeColors(positiveColor, negativeColor, zeroColor);
+        return this;
+    }
+
+    /**
+     * Convenience method to enable CUSTOM_CALLBACK series coloring with a raw JS function.
+     * Example: setCustomColorFunction("(value) => value > 100 ? 'green' : 'red'");
+     */
+    public CreateRangeChartParams setCustomColorFunction(String colorFunction)
+    {
+        if (this.seriesColorConfig == null)
+        {
+            this.seriesColorConfig = new SeriesColorConfiguration();
+        }
+        this.seriesColorConfig.setCustomColorFunction(colorFunction);
         return this;
     }
 }
