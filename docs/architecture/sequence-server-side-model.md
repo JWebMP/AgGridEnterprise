@@ -25,40 +25,18 @@ sequenceDiagram
     Browser->>Engine: onServerSideGetRows(params)
     activate Engine
     
-    Engine->>Backend: POST /api/grid/rows
-    {
-      "startRow": 0,
-      "endRow": 100,
-      "rowGroupCols": [],
-      "valueCols": [{"field": "sales", "aggFunc": "sum"}],
-      "pivotCols": [],
-      "pivotMode": false,
-      "filterModel": {"country": {"values": ["USA"]}},
-      "sortModel": [{"colId": "sales", "sort": "desc"}]
-    }
+    Engine->>Backend: POST /api/grid/rows (getRows)
+    Note over Engine,Backend: Payload<br/>{<br/>"startRow": 0,<br/>"endRow": 100,<br/>"rowGroupCols": [],<br/>"valueCols": [{"field": "sales", "aggFunc": "sum"}],<br/>"pivotCols": [],<br/>"pivotMode": false,<br/>"filterModel": {"country": {"values": ["USA"]}},<br/>"sortModel": [{"colId": "sales", "sort": "desc"}]<br/>}
     activate Backend
     
     Backend->>DB: Query with sort/filter/pagination
-    {
-      SELECT * FROM sales
-      WHERE country IN ('USA')
-      ORDER BY sales DESC
-      LIMIT 100 OFFSET 0
-    }
+    Note over Backend,DB: SQL<br/>SELECT * FROM sales<br/>WHERE country IN ('USA')<br/>ORDER BY sales DESC<br/>LIMIT 100 OFFSET 0
     activate DB
     DB-->>Backend: Rows data
     deactivate DB
     
     Backend->>Backend: Transform to AG Grid format
-    {
-      "successStatus": 0,
-      "rowData": [
-        {"id": 1, "country": "USA", "sales": 5000},
-        {"id": 2, "country": "USA", "sales": 4500},
-        ...
-      ],
-      "rowCount": 250
-    }
+    Note over Backend,Engine: Response<br/>{<br/>"successStatus": 0,<br/>"rowData": [{"id": 1, "country": "USA", "sales": 5000}, {"id": 2, "country": "USA", "sales": 4500}, ...],<br/>"rowCount": 250<br/>}
     Backend-->>Engine: Success response + rowCount
     deactivate Backend
     
@@ -73,30 +51,17 @@ sequenceDiagram
     User->>Engine: Apply row grouping<br/>groupBy: country
     activate Engine
     
-    Engine->>Backend: POST /api/grid/rows<br/>(rowGroupCols: [{"field": "country"}])
-    {
-      "startRow": 0,
-      "endRow": 100,
-      "rowGroupCols": [{"field": "country", "aggFunc": null}],
-      "pivotCols": [],
-      "groupKeys": [],
-      "sortModel": []
-    }
+    Engine->>Backend: POST /api/grid/rows (grouping)
+    Note over Engine,Backend: Payload<br/>{<br/>"startRow": 0,<br/>"endRow": 100,<br/>"rowGroupCols": [{"field": "country", "aggFunc": null}],<br/>"pivotCols": [],<br/>"groupKeys": [],<br/>"sortModel": []<br/>}
     activate Backend
     
     Backend->>DB: Query for distinct countries
+    activate DB
     DB-->>Backend: ["USA", "Canada", "Mexico"]
     deactivate DB
     
     Backend-->>Engine: Group response
-    {
-      "successStatus": 0,
-      "rowData": [
-        {"country": "USA", "group": true, "rowCount": 100},
-        {"country": "Canada", "group": true, "rowCount": 50},
-        ...
-      ]
-    }
+    Note over Backend,Engine: Response<br/>{<br/>"successStatus": 0,<br/>"rowData": [{"country": "USA", "group": true, "rowCount": 100}, {"country": "Canada", "group": true, "rowCount": 50}, ...]<br/>}
     deactivate Backend
     
     Engine->>Engine: Render group rows
@@ -108,17 +73,12 @@ sequenceDiagram
     User->>Engine: Expand group key "USA"
     activate Engine
     
-    Engine->>Backend: POST /api/grid/rows<br/>(groupKeys: ["USA"])
-    {
-      "startRow": 0,
-      "endRow": 50,
-      "rowGroupCols": [{"field": "country"}],
-      "groupKeys": ["USA"],
-      "sortModel": []
-    }
+    Engine->>Backend: POST /api/grid/rows (expand group "USA")
+    Note over Engine,Backend: Payload<br/>{<br/>"startRow": 0,<br/>"endRow": 50,<br/>"rowGroupCols": [{"field": "country"}],<br/>"groupKeys": ["USA"],<br/>"sortModel": []<br/>}
     activate Backend
     
     Backend->>DB: Query children for country=USA
+    activate DB
     DB-->>Backend: Detail rows for USA
     deactivate DB
     
@@ -136,6 +96,7 @@ sequenceDiagram
     Engine->>Backend: Refresh with new column layout
     activate Backend
     Backend->>DB: Query (column order affects aggregation)
+    activate DB
     DB-->>Backend: Rows in new order
     deactivate DB
     Backend-->>Engine: Rows response
@@ -149,7 +110,7 @@ sequenceDiagram
 
 ### 1. Grid Initialization
 Developer configures:
-```java
+```text
 AgGridEnterpriseOptions opts = getOptions();
 opts.setRowModelType(RowModelType.SERVER_SIDE);
 opts.setServerSideStoreType("partial");  // lazy-load on scroll
@@ -173,7 +134,7 @@ When user:
 AG Grid JS calls: `dataSource.getRows(params)`
 
 ### 4. Request Object (params)
-```typescript
+```text
 {
   startRow: number,           // 0-based
   endRow: number,             // exclusive
@@ -195,11 +156,11 @@ Java REST endpoint receives params and:
 - Transforms results to AG Grid format
 
 Response:
-```java
+```text
 {
-  "successStatus": 0,         // 0 = success, 1 = error
-  "rowData": [...],           // rows for this block
-  "rowCount": 1000            // total rows (after filter)
+  "successStatus": 0,
+  "rowData": [...],
+  "rowCount": 1000
 }
 ```
 

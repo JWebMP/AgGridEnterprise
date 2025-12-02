@@ -5,47 +5,41 @@ Flow from enabling charts to chart display in the grid.
 ```mermaid
 sequenceDiagram
     actor User as User/Developer
-    participant Grid as AgGridEnterprise<br/>Component
-    participant Opts as ChartOptions<br/>POJO
-    participant Mapper as ChartMapper<br/>MapStruct
-    participant Jackson as Jackson<br/>Serializer
-    participant Angular as Angular<br/>Component Tree
-    participant GridJS as ag-grid-angular<br/>Component
-    participant Engine as AG Grid<br/>Enterprise Engine
-    participant ChartEngine as Chart Engine<br/>ag-charts-enterprise
-    participant Browser as DOM<br/>Canvas/SVG
+    participant Grid as AgGridEnterprise Component
+    participant Opts as ChartOptions POJO
+    participant Mapper as ChartMapper MapStruct
+    participant Jackson as Jackson Serializer
+    participant Angular as Angular Component Tree
+    participant GridJS as ag-grid-angular Component
+    participant Engine as AG Grid Enterprise Engine
+    participant ChartEngine as Chart Engine ag-charts-enterprise
+    participant Browser as DOM Canvas/SVG
 
     User->>Grid: enableCharts()
     activate Grid
-    Grid->>Opts: Create ChartOptions<br/>set themes, toolbar, etc.
+    Grid->>Opts: Create ChartOptions set themes and toolbar etc
     activate Opts
     
     Grid->>Mapper: Map domain→JSON contract
     activate Mapper
-    Mapper->>Opts: Read chartThemes<br/>chartThemeOverrides<br/>chartToolPanelsDef
+    Mapper->>Opts: Read chartThemes and chartThemeOverrides and chartToolPanelsDef
     Mapper->>Jackson: Prepare for serialization
     deactivate Mapper
     
     Grid->>Jackson: serialize ChartOptions
     activate Jackson
-    Jackson->>Jackson: @JsonAutoDetect field detection<br/>@JsonInclude NON_NULL filtering
+    Jackson->>Jackson: @JsonAutoDetect field detection - @JsonInclude NON_NULL filtering
     Jackson-->>Grid: JSON object
-    {
-      "enableCharts": true,
-      "chartThemes": ["ag-default"],
-      "chartToolPanelsDef": {...},
-      "suppressChartToolPanelsOverlay": false
-    }
     deactivate Jackson
     deactivate Opts
     deactivate Grid
     
-    Angular->>GridJS: Bind options to component<br/>[gridOptions]="chartOptions"
+    Angular->>GridJS: Bind options to component gridOptions to chartOptions
     activate GridJS
     
-    GridJS->>Engine: Initialize AG Grid<br/>with chart options
+    GridJS->>Engine: Initialize AG Grid with chart options
     activate Engine
-    Engine->>ChartEngine: Register chart provider<br/>AllEnterpriseModule active
+    Engine->>ChartEngine: Register chart provider AllEnterpriseModule active
     activate ChartEngine
     ChartEngine-->>Engine: Charts ready
     deactivate ChartEngine
@@ -60,13 +54,13 @@ sequenceDiagram
     GridJS->>Engine: rowData changed event
     
     activate Engine
-    Engine->>ChartEngine: Trigger chart creation<br/>based on chartThemes config
+    Engine->>ChartEngine: Trigger chart creation based on chartThemes config
     activate ChartEngine
     
-    ChartEngine->>ChartEngine: Aggregate row data<br/>per column/series config
-    ChartEngine->>ChartEngine: Apply theme<br/>(ag-default colors, fonts, etc.)
+    ChartEngine->>ChartEngine: Aggregate row data per column/series config
+    ChartEngine->>ChartEngine: Apply theme (ag-default colors and fonts etc.)
     
-    ChartEngine->>Browser: Render chart to DOM<br/>Canvas/SVG elements
+    ChartEngine->>Browser: Render chart to DOM Canvas/SVG elements
     activate Browser
     Browser-->>ChartEngine: Chart rendered
     deactivate Browser
@@ -75,29 +69,29 @@ sequenceDiagram
     deactivate ChartEngine
     deactivate Engine
     
-    Engine->>GridJS: Tool panel available<br/>toggle charts, themes, etc.
-    GridJS-->>User: Interactive chart displayed<br/>in Grid side panel or modal
+    Engine->>GridJS: Tool panel available toggle charts and themes etc
+    GridJS-->>User: Interactive chart displayed in Grid side panel or modal
     deactivate GridJS
     
-    Note over User,Browser: User can interact with chart<br/>zoom, pan, export, theme change
+    Note over User,Browser: User can interact with chart: zoom and pan and export and theme change
 ```
 
 ## Charts Rendering Flow Details
 
 ### 1. Enable Charts (Java Side)
 Developer calls on AgGridEnterprise:
-```java
+```
 enableCharts();
 // or with custom config:
-ChartOptions chartOpts = new ChartOptions()
-    .setChartThemes(List.of(ChartTheme.AG_DEFAULT, ChartTheme.AG_VIVID))
-    .setChartThemeOverrides(Map.of(...));
+ChartOptions chartOpts = new ChartOptions();
+chartOpts.setChartThemes(List.of(ChartTheme.AG_DEFAULT, ChartTheme.AG_VIVID));
+chartOpts.setChartThemeOverrides(new java.util.HashMap<>()); // customize as needed
 getOptions().setChartOptions(chartOpts);
 ```
 
 ### 2. MapStruct Transformation
 ChartMapper converts domain model → AG Grid contract:
-```java
+```
 @Mapper
 public interface ChartMapper {
     // Maps List<ChartTheme> → List<String> ("ag-default", "ag-vivid")
@@ -114,7 +108,7 @@ Configured with:
 
 ### 4. Angular Binding
 Grid component receives options:
-```typescript
+```html
 <ag-grid-angular 
   [gridOptions]="gridOptions"
   [rowData]="rowData">
