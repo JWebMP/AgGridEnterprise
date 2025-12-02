@@ -198,7 +198,7 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
      */
     public J enableCharts()
     {
-        ((AgGridEnterpriseOptions<?>) getOptions()).setEnableCharts(true);
+        getOptions().setEnableCharts(true);
         addAttribute("[enableCharts]", "true");
         return (J) this;
     }
