@@ -1,4 +1,4 @@
-import com.guicedee.guicedinjection.interfaces.IGuiceScanModuleInclusions;
+import com.guicedee.client.services.config.IGuiceScanModuleInclusions;
 import com.jwebmp.core.services.IPageConfigurator;
 import com.jwebmp.plugins.aggridenterprise.AgGridEnterprisePageConfigurator;
 import com.jwebmp.plugins.aggridenterprise.implementations.AgGridEnterpriseModuleScanInclusion;
