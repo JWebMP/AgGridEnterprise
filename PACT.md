@@ -261,4 +261,5 @@ Key attributes:
 - Guides: [GUIDES.md](GUIDES.md)
 - Implementation: [IMPLEMENTATION.md](IMPLEMENTATION.md)
 - Guide Details: [docs/AgGridEnterprise-Guide.md](docs/AgGridEnterprise-Guide.md)
+- **Enterprise Features Reference** — [enterprise-features.rules.md](enterprise-features.rules.md) (AG Grid v34.2.0 complete feature list, module registration, licensing, and patterns)
 

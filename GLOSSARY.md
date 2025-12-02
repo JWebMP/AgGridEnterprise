@@ -219,7 +219,32 @@
 
 ---
 
-## Related Documentation
+---
+
+## AG Grid v34.2.0 Features & Breaking Changes
+
+**AG Grid Version:** 34.2.0 LTS (as documented in enterprise-features.rules.md)
+
+### Key v34 Changes
+- **Infinite Scrolling Default** — Server-Side Row Model now enables infinite scrolling by default; set `suppressServerSideInfiniteScroll=true` to disable
+- **Unbalanced Groups** — Disabled by default in v34; enable with `groupAllowUnbalanced=true`
+- **Chart Toolbar** — Chart tool button now visible by default; set `suppressChartToolPanelsButton=true` for old behavior
+- **Migration Reference** — See enterprise-features.rules.md § "Removed / Deprecated Features"
+
+### Enterprise Modules Availability
+- **Server-Side Row Model** — ServerSideRowModelModule (most popular for large datasets)
+- **Row Grouping & Aggregation** — RowGroupingModule, PivotModule
+- **Advanced Filtering** — SetFilterModule (enterprise-only), AdvancedFilterModule
+- **Excel Export** — ExcelExportModule (with styles, formulas, merged cells)
+- **Integrated Charts** — IntegratedChartsModule (+ AgChartsEnterpriseModule for advanced charts)
+- **Master/Detail** — MasterDetailModule (nested grids)
+- **Clipboard** — ClipboardModule (copy/paste with formatting)
+- **Range Selection** — RangeSelectionModule (for chart data selection)
+- **Viewport Row Model** — ViewportRowModelModule (for real-time data)
+
+See **enterprise-features.rules.md** for complete feature matrix and module registration patterns.
+
+---
 
 - **PACT.md** — Product architecture and contract
 - **RULES.md** — Project rules and stacks
@@ -227,5 +252,6 @@
 - **IMPLEMENTATION.md** — Module structure and code layout
 - **docs/AgGridEnterprise-Guide.md** — Usage guide and examples
 - **docs/architecture/README.md** — Architecture diagrams (C4, sequence, ERD)
+- **enterprise-features.rules.md** — Complete AG Grid v34.2.0 enterprise features reference
 - **rules/** — Enterprise Rules Repository submodule; see `/rules/GLOSSARY.md` for framework-wide terms
 

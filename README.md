@@ -60,6 +60,7 @@ This project adopts the **Rules Repository** (https://github.com/GuicedEE/ai-rul
 ### Usage & Examples
 
 - **[docs/AgGridEnterprise-Guide.md](docs/AgGridEnterprise-Guide.md)** — Comprehensive usage guide with feature examples (Charts, Range Selection, Row Grouping, Server-Side Model, etc.)
+- **[enterprise-features.rules.md](enterprise-features.rules.md)** — AG Grid v34.2.0 complete enterprise features reference: all 15+ features, module registration, licensing, breaking changes, and troubleshooting
 
 ### Architecture & Flows
 

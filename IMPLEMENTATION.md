@@ -497,6 +497,7 @@ public class AgGridEnterprisePageConfigurator implements IPageConfigurator { ...
 - **[RULES.md](RULES.md)** — Project rules
 - **[GLOSSARY.md](GLOSSARY.md)** — Terminology
 - **[GUIDES.md](GUIDES.md)** — How-to guides
+- **[enterprise-features.rules.md](enterprise-features.rules.md)** — AG Grid v34.2.0 features and modules
 - **[docs/architecture/README.md](docs/architecture/README.md)** — Architecture diagrams
 - **[docs/AgGridEnterprise-Guide.md](docs/AgGridEnterprise-Guide.md)** — Usage guide
 - **[pom.xml](pom.xml)** — Maven configuration

@@ -589,6 +589,12 @@ README.md (entry point)
 │   ├── → GLOSSARY.md
 │   ├── → GUIDES.md
 │   └── → src/main/java/com/jwebmp/plugins/aggridenterprise/*
+├── → enterprise-features.rules.md (AG Grid v34.2.0 reference)
+│   ├── → PACT.md (referenced in Features section)
+│   ├── → GLOSSARY.md (breaking changes, module matrix)
+│   ├── → GUIDES.md (licensing, module patterns, troubleshooting)
+│   ├── → IMPLEMENTATION.md (module structure)
+│   └── → README.md (comprehensive features reference)
 ├── → docs/PROMPT_REFERENCE.md (config reference)
 │   ├── → PACT.md
 │   ├── → RULES.md
@@ -596,7 +602,8 @@ README.md (entry point)
 │   ├── → GUIDES.md
 │   ├── → IMPLEMENTATION.md
 │   ├── → docs/architecture/*.md (all diagrams)
-│   └── → rules/* (submodule)
+│   ├── → rules/* (submodule)
+│   └── → enterprise-features.rules.md
 ├── → docs/AgGridEnterprise-Guide.md (usage examples)
 │   ├── → GUIDES.md
 │   ├── → PACT.md
@@ -634,15 +641,16 @@ rules/ (submodule - external reference)
 | Document | Links To | Linked By | Bidirectional |
 |----------|----------|-----------|---|
 | README.md | PACT, RULES, GLOSSARY, GUIDES, IMPL, docs/ | All entry users | ✅ |
-| PACT.md | GLOSSARY, RULES, GUIDES, IMPL, diags | README, RULES, GUIDES, IMPL | ✅ |
-| RULES.md | PACT, GLOSSARY, GUIDES, IMPL, rules/ | README, PACT, GLOSSARY, GUIDES | ✅ |
-| GLOSSARY.md | PACT, RULES, GUIDES, IMPL, rules/ | README, PACT, RULES, GUIDES, IMPL | ✅ |
-| GUIDES.md | PACT, RULES, GLOSSARY, IMPL, examples | README, PACT, RULES, IMPL | ✅ |
-| IMPLEMENTATION.md | PACT, RULES, GLOSSARY, GUIDES, code | README, PACT, RULES, GUIDES | ✅ |
-| docs/PROMPT_REFERENCE.md | All core docs, diagrams, rules/ | README, ADOPTION_SUMMARY | ⚠️ One-way (reference) |
+| PACT.md | GLOSSARY, RULES, GUIDES, IMPL, diags, enterprise-features | README, RULES, GUIDES, IMPL | ✅ |
+| RULES.md | PACT, GLOSSARY, GUIDES, IMPL, rules/, enterprise-features | README, PACT, GLOSSARY, GUIDES | ✅ |
+| GLOSSARY.md | PACT, RULES, GUIDES, IMPL, rules/, enterprise-features | README, PACT, RULES, GUIDES, IMPL | ✅ |
+| GUIDES.md | PACT, RULES, GLOSSARY, IMPL, examples, enterprise-features | README, PACT, RULES, IMPL | ✅ |
+| IMPLEMENTATION.md | PACT, RULES, GLOSSARY, GUIDES, code, enterprise-features | README, PACT, RULES, GUIDES | ✅ |
+| enterprise-features.rules.md | AG Grid v34.2.0 modules, features, patterns, validation | PACT, GLOSSARY, GUIDES, README, IMPLEMENTATION | ✅ |
+| docs/PROMPT_REFERENCE.md | All core docs, diagrams, rules/, enterprise-features | README, ADOPTION_SUMMARY | ⚠️ One-way (reference) |
 | docs/architecture/README.md | All C4s, sequences, ERD | PACT, GUIDES, ADOPTION | ✅ |
-| docs/AgGridEnterprise-Guide.md | GUIDES, PACT, examples | README, GUIDES | ✅ |
-| ADOPTION_SUMMARY.md | All core docs | README (optional) | ⚠️ One-way (record) |
+| docs/AgGridEnterprise-Guide.md | GUIDES, PACT, examples, enterprise-features | README, GUIDES | ✅ |
+| ADOPTION_SUMMARY.md | All core docs, enterprise-features | README (optional) | ⚠️ One-way (record) |
 | rules/ (submodule) | (external) | RULES, GLOSSARY, all | ⚠️ One-way (reference) |
 
 ---
@@ -657,6 +665,7 @@ rules/ (submodule - external reference)
 - [x] GLOSSARY.md → topic glossaries linked correctly
 - [x] GUIDES.md → PACT, RULES, GLOSSARY links functional
 - [x] IMPLEMENTATION.md → code structure and pom.xml verified
+- [x] enterprise-features.rules.md → AG Grid v34.2.0 modules and features verified
 - [x] docs/PROMPT_REFERENCE.md → all artifact links functional
 - [x] docs/architecture/README.md → all diagram links functional
 - [x] docs/AgGridEnterprise-Guide.md → GUIDES and examples linked

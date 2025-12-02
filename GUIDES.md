@@ -547,12 +547,18 @@ public void testPageConfiguratorRegistersModule() {
 
 ## Related Resources
 
+### Project Documentation
 - **PACT.md** — Product architecture and contract
 - **RULES.md** — Project rules and stacks
 - **GLOSSARY.md** — Terminology
 - **IMPLEMENTATION.md** — Module structure
 - **docs/AgGridEnterprise-Guide.md** — Usage guide and examples
 - **docs/architecture/README.md** — Architecture diagrams
+- **enterprise-features.rules.md** — Complete AG Grid v34.2.0 enterprise features reference, modules, licensing, and patterns
+
+### External References
 - **AG Grid Enterprise Docs** — https://www.ag-grid.com/
+- **AG Grid Modules** — https://www.ag-grid.com/angular-data-grid/modules/
+- **AG Grid License & Activation** — https://www.ag-grid.com/angular-data-grid/license-install/
 - **JWebMP Docs** — https://github.com/JWebMP/JWebMP
 

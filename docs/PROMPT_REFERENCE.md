@@ -158,6 +158,7 @@ None specific to AgGridEnterprise (no WebAwesome components); follow standard Ja
 | **2 (Guides)** | GUIDES.md | ✅ Complete | PACT, RULES, GLOSSARY, IMPLEMENTATION |
 | **2 (Guides)** | docs/AgGridEnterprise-Guide.md | ✅ Complete | GUIDES, examples |
 | **3 (Implementation Plan)** | IMPLEMENTATION.md | ✅ Complete | Code structure, pom.xml, module-info.java |
+| **Reference** | enterprise-features.rules.md | ✅ Complete | AG Grid v34.2.0 modules, features, patterns |
 | **4 (Code)** | Source code | ✅ Current | Follows IMPLEMENTATION, RULES |
 
 ---
@@ -172,9 +173,10 @@ When a new prompt is run against this project:
 2. **Load PACT.md** — Understand product architecture and contract
 3. **Load RULES.md** — Understand project rules and constraints
 4. **Load GLOSSARY.md** — Use terminology consistently
-5. **Load relevant GUIDES** — For feature-specific guidance
-6. **Reference architecture diagrams** — Understand bounded contexts and data flows
-7. **Reference IMPLEMENTATION.md** — Understand code organization
+5. **Load enterprise-features.rules.md** — For AG Grid v34.2.0 features, module registration, and licensing
+6. **Load relevant GUIDES** — For feature-specific guidance
+7. **Reference architecture diagrams** — Understand bounded contexts and data flows
+8. **Reference IMPLEMENTATION.md** — Understand code organization
 
 ### For Maintaining Consistency
 
@@ -228,6 +230,7 @@ When a new prompt is run against this project:
 | PROMPT_REFERENCE.md | 1.0 | 2025-12-02 | Current |
 | PACT.md | 1.0 | 2025-12-02 | Current |
 | RULES.md | 1.0 | 2025-12-02 | Current |
+| enterprise-features.rules.md | 1.0 | 2025-12-02 | Current |
 | GLOSSARY.md | 1.0 | 2025-12-02 | Current |
 | GUIDES.md | 1.0 | 2025-12-02 | Current |
 | IMPLEMENTATION.md | 1.0 | 2025-12-02 | Current |
