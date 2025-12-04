@@ -30,19 +30,56 @@ public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> exten
     @Override
     public AgGridEnterpriseColumnDef<?> getDefaultColDef()
     {
+        // Retrieve base definition (may be community or enterprise). If none, return null for parity
+        // with community behavior and to avoid introducing side-effects.
         AgGridColumnDef<?> base = super.getDefaultColDef();
         if (base == null)
         {
-            return null;
+										super.setDefaultColDef(new AgGridEnterpriseColumnDef<>());
+										base = super.getDefaultColDef();
         }
+
+        AgGridEnterpriseColumnDef<?> ent;
         if (base instanceof AgGridEnterpriseColumnDef<?> enterprise)
         {
-            return enterprise;
+            ent = enterprise;
         }
-        // Convert community defaultColDef into an enterprise one using MapStruct mapper
-        AgGridEnterpriseColumnDef<?> ent = AgGridColDefEnterpriseMapper.INSTANCE.toEnterpriseColDef(base);
-        setDefaultColDef(ent);
-        return ent;
+        else
+        {
+            // Convert community defaultColDef into an enterprise one using MapStruct mapper
+            ent = AgGridColDefEnterpriseMapper.INSTANCE.toEnterpriseColDef(base);
+        }
+
+        // Defensive copy: return a new instance so callers cannot mutate internal state
+        try
+        {
+            com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+            byte[] json = mapper.writeValueAsBytes(ent);
+            return mapper.readValue(json, AgGridEnterpriseColumnDef.class);
+        }
+        catch (Exception e)
+        {
+            return new AgGridEnterpriseColumnDef<>();
+        }
+    }
+
+    /**
+     * Convenience getter mirroring legacy suppressAggHeader flag at grid level for Enterprise.
+     * Delegates to enterprise RowGroupingOptions (flattened via @JsonUnwrapped).
+     */
+    public Boolean getSuppressAggFuncInHeader()
+    {
+        return rowGroupingOptions() != null ? rowGroupingOptions().getSuppressAggFuncInHeader() : null;
+    }
+
+    /**
+     * Convenience setter mirroring legacy suppressAggHeader flag at grid level for Enterprise.
+     */
+    @SuppressWarnings("unchecked")
+    public J setSuppressAggFuncInHeader(Boolean suppress)
+    {
+        rowGroupingOptions().setSuppressAggFuncInHeader(suppress);
+        return (J) this;
     }
 
     // ===== PHASE 2: MODULAR ENTERPRISE OPTIONS (8 Modules) =====
