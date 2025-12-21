@@ -39,7 +39,6 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends AgGrid<J>
 {
-    private AgGridEnterpriseOptions<?> enterpriseOptions;
     /**
      * When non-null, we will generate TypeScript to set the option via gridApi after view init.
      */
@@ -165,31 +164,18 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
     @Override
     public AgGridEnterpriseOptions<?> getOptions()
     {
-        if (enterpriseOptions == null)
+        if (super.getOptions() == null)
         {
-            enterpriseOptions = new AgGridEnterpriseOptions<>();
-            super.setOptions(enterpriseOptions);
+            super.setOptions(new AgGridEnterpriseOptions<>());
         }
-        return enterpriseOptions;
-    }
-
-    /**
-     * Sets the options but ensures it is of enterprise type
-     */
-    @NotNull
-    public @org.jspecify.annotations.NonNull J setOptions(AgGridEnterpriseOptions<?> options)
-    {
-        if (options instanceof AgGridEnterpriseOptions)
-        {
-            this.enterpriseOptions = (AgGridEnterpriseOptions<?>) options;
-        }
-        else
-        {
-            // copy basic options into enterprise container if needed
-            AgGridEnterpriseOptions<?> ent = new AgGridEnterpriseOptions<>();
-            this.enterpriseOptions = ent;
-        }
-        return (J) super.setOptions(enterpriseOptions);
+								if(!(super.getOptions() instanceof AgGridEnterpriseOptions<?>))
+								{
+									// copy basic options into enterprise container if needed
+										var opts = AgGridColDefEnterpriseMapper.INSTANCE.toEnterpriseOptions(super.getOptions());
+										super.setOptions(opts);
+										return opts;
+								}
+        return (AgGridEnterpriseOptions) super.getOptions();
     }
 
     // Convenience helpers for enterprise features
@@ -231,7 +217,7 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
      */
     public J showRowGroupPanel()
     {
-        ((AgGridEnterpriseOptions<?>) getOptions()).rowGroupingOptions().setRowGroupPanelShow("always");
+        ((AgGridEnterpriseOptions<?>) getOptions()).configureRowGrouping().setRowGroupPanelShow("always");
         addAttribute("rowGroupPanelShow", "always");
         return (J) this;
     }
@@ -270,7 +256,7 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
      */
     public J allowUnbalancedGroups(Boolean allow)
     {
-        ((AgGridEnterpriseOptions<?>) getOptions()).rowGroupingOptions().setGroupAllowUnbalanced(allow);
+        ((AgGridEnterpriseOptions<?>) getOptions()).configureRowGrouping().setGroupAllowUnbalanced(allow);
         if (allow != null)
         {
             addAttribute("[groupAllowUnbalanced]", allow ? "true" : "false");
@@ -286,7 +272,7 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
      */
     public J suppressChartToolPanelsButton(Boolean suppress)
     {
-        ((AgGridEnterpriseOptions<?>) getOptions()).setSuppressChartToolPanelsButton(suppress);
+        ((AgGridEnterpriseOptions<?>) getOptions()).configureCharts().setSuppressChartToolPanelsButton(suppress);
         if (suppress != null)
         {
             addAttribute("[suppressChartToolPanelsButton]", suppress ? "true" : "false");
@@ -448,7 +434,7 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
     /** Enable Pivot Mode on the grid. */
     public J enablePivotMode()
     {
-        ((AgGridEnterpriseOptions<?>) getOptions()).setPivotMode(true);
+        ((AgGridEnterpriseOptions<?>) getOptions()).configurePivoting().setPivotMode(true);
         addAttribute("[pivotMode]", "true");
         return (J) this;
     }
@@ -717,7 +703,7 @@ public abstract class AgGridEnterprise<J extends AgGridEnterprise<J>> extends Ag
      */
     public J bindSuppressAggFuncInHeader(Boolean value)
     {
-        ((AgGridEnterpriseOptions<?>) getOptions()).rowGroupingOptions().setSuppressAggFuncInHeader(value);
+        ((AgGridEnterpriseOptions<?>) getOptions()).configureRowGrouping().setSuppressAggFuncInHeader(value);
         this.suppressAggFuncInHeaderTs = value;
         String attrKey = "[suppressAggFuncInHeader]";
         if (value == null)

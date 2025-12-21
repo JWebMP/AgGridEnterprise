@@ -1,11 +1,15 @@
 package com.jwebmp.plugins.aggridenterprise.options.mapping;
 
 import com.jwebmp.plugins.aggrid.options.AgGridColumnDef;
+import com.jwebmp.plugins.aggrid.options.AgGridOptions;
 import com.jwebmp.plugins.aggridenterprise.options.AgGridEnterpriseColumnDef;
+import com.jwebmp.plugins.aggridenterprise.options.AgGridEnterpriseOptions;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * MapStruct mapper to convert a community AgGridColumnDef to an enterprise AgGridEnterpriseColumnDef.
@@ -54,4 +58,7 @@ public interface AgGridColDefEnterpriseMapper
             @Mapping(target = "getGroupRowAgg", ignore = true)
     })
     AgGridEnterpriseColumnDef toEnterpriseColDef(AgGridColumnDef source);
+    List<AgGridEnterpriseColumnDef> toEnterpriseColDefs(List<AgGridColumnDef> source);
+				
+				AgGridEnterpriseOptions toEnterpriseOptions(AgGridOptions source);
 }
