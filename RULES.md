@@ -133,11 +133,25 @@ All public APIs exported via `module-info.java`:
 
 ## 4. Behavioral Rules
 
-### API Stability
+### onGridReady Logic Injection
+Inherited from the community `AgGrid` component, `AgGridEnterprise` allows injecting custom TypeScript logic into the `onGridReady` method.
 
+- **Java Override**: Override `public List<String> onGridReady()` in your `AgGridEnterprise` subclass.
+- **Content**: Return a list of TypeScript strings.
+- **Enterprise Features**: Common enterprise initializations (like charts) are often handled via specific methods, but `onGridReady` remains the primary hook for custom API interactions.
+
+### API Stability
 - **No Breaking Changes** — Maintain backward compatibility with community AgGrid plugin
 - **Additive Only** — New features added without removing/renaming existing options
 - **Deprecation Path** — If option renamed, old name deprecated (marked @Deprecated) for one major version before removal
+
+### TypeScript Enterprise Methods
+`AgGridEnterprise` extends the community component with additional TypeScript methods for enterprise-specific features:
+- `applySuppressAggFuncInHeader()`: Applies the `suppressAggFuncInHeader` option to the Grid API.
+- `initCrossFilterCharts()`: Initializes any queued cross-filter charts using the Grid API.
+- `initRangeCharts()`: Initializes any queued range charts using the Grid API.
+- `openChartToolPanel(chartId?: string, panel?: 'settings' | 'data' | 'format')`: Programmatically opens a chart's tool panel.
+- `closeChartToolPanel(chartId?: string)`: Programmatically closes a chart's tool panel.
 
 ### Naming Conventions
 

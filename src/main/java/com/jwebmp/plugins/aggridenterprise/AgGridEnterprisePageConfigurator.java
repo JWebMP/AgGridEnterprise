@@ -13,7 +13,7 @@ import lombok.Setter;
         pluginName = "AG Grid Enterprise",
         pluginUniqueName = "ag-grid-enterprise",
         pluginDescription = "AG Grid Enterprise extension for JWebMP providing integrated charts, row grouping, server-side row model and more.",
-        pluginVersion = "34.2.0",
+        pluginVersion = "35.0.0",
         pluginCategories = "grid, table, data, ui, web ui, enterprise",
         pluginSubtitle = "Enterprise features for AG Grid",
         pluginSourceUrl = "https://www.ag-grid.com/",
@@ -30,8 +30,8 @@ import lombok.Setter;
         pluginStatus = PluginStatus.Released
 )
 
-@TsDependency(value = "ag-grid-enterprise", version = "^34.2.0")
-@TsDependency(value = "ag-charts-enterprise", version = "^12.2.0")
+@TsDependency(value = "ag-grid-enterprise", version = "^35.0.0")
+@TsDependency(value = "ag-charts-enterprise", version = "^13.0.0")
 @NgBootImportReference(value = "AllEnterpriseModule", reference = "ag-grid-enterprise")
 @NgBootImportReference(value = "ModuleRegistry", reference = "ag-grid-community")
 @NgBootImportReference(value = "LicenseManager", reference = "ag-grid-enterprise")

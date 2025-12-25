@@ -24,13 +24,6 @@ import java.util.Objects;
 public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> extends AgGridColumnDef<J>
 {
     /**
-     * Name of function to use for aggregation. In-built options are: sum, min, max, count, avg, first, last.
-     * Also accepts a custom aggregation name.
-     */
-    @JsonProperty("aggFunc")
-    private Object aggFunc;
-
-    /**
      * Same as aggFunc, except only applied when creating a new column. Not applied when updating colDefs.
      */
     @JsonProperty("initialAggFunc")
@@ -47,18 +40,6 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
      */
     @JsonProperty("enableRowGroup")
     private Boolean enableRowGroup;
-
-    /**
-     * Set to true to allow this column to be used in pivoting via the GUI.
-     */
-    @JsonProperty("enablePivot")
-    private Boolean enablePivot;
-
-    /**
-     * When true, this column will be used as a pivot column (equivalent to ColDef.pivot in AG Grid).
-     */
-    @JsonProperty("pivot")
-    private Boolean pivot;
 
     /**
      * Explicitly set the data type for this column's cells. Accepts one of the built-in types
@@ -252,20 +233,21 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
 
     // ===== Getters / Setters (fluent) =====
 
+    @Override
     public Object getAggFunc()
     {
-        return aggFunc;
+        return super.getAggFunc();
     }
 
     public @org.jspecify.annotations.NonNull J setAggFunc(AggFunc aggFunc)
     {
-        this.aggFunc = aggFunc == null ? null : aggFunc.toString();
+        super.setAggFunc(aggFunc == null ? null : aggFunc.toString());
         return (J) this;
     }
 
     public @org.jspecify.annotations.NonNull J setAggFunc(String aggFuncName)
     {
-        this.aggFunc = aggFuncName;
+        super.setAggFunc(aggFuncName);
         return (J) this;
     }
 
@@ -308,25 +290,29 @@ public class AgGridEnterpriseColumnDef<J extends AgGridEnterpriseColumnDef<J>> e
         return (J) this;
     }
 
+    @Override
     public Boolean getEnablePivot()
     {
-        return enablePivot;
+        return super.getEnablePivot();
     }
 
+    @Override
     public @org.jspecify.annotations.NonNull J setEnablePivot(Boolean enablePivot)
     {
-        this.enablePivot = enablePivot;
+        super.setEnablePivot(enablePivot);
         return (J) this;
     }
 
+    @Override
     public Boolean getPivot()
     {
-        return pivot;
+        return super.getPivot();
     }
 
+    @Override
     public @org.jspecify.annotations.NonNull J setPivot(Boolean pivot)
     {
-        this.pivot = pivot;
+        super.setPivot(pivot);
         return (J) this;
     }
 
