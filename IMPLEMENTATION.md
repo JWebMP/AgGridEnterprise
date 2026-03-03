@@ -487,7 +487,7 @@ opens com.jwebmp.plugins.aggridenterprise to
     <artifactId>aggrid</artifactId>
 </dependency>
 <dependency>
-    <groupId>com.guicedee.services</groupId>
+    <groupId>com.guicedee.modules.services</groupId>
     <artifactId>mapstruct</artifactId>
 </dependency>
 <dependency>

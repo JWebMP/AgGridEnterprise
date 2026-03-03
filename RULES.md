@@ -32,7 +32,7 @@
 | `com.jwebmp.core:jwebmp-core` | from BOM | Component model, TS generation |
 | `com.jwebmp.plugins:aggrid` | from BOM | Community AgGrid plugin |
 | `com.jwebmp.plugins:typescript-client` | from BOM | TypeScript client support |
-| `com.guicedee.services:mapstruct` | from BOM | MapStruct support via GuicedEE |
+| `com.guicedee.modules.services:mapstruct` | from BOM | MapStruct support via GuicedEE |
 | `org.projectlombok:lombok` | from BOM | Provided scope; annotations only |
 
 ### DI & Service Discovery
