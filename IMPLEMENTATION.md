@@ -480,7 +480,7 @@ opens com.jwebmp.plugins.aggridenterprise to
 ```xml
 <dependency>
     <groupId>com.jwebmp.core</groupId>
-    <artifactId>jwebmp-core</artifactId>
+    <artifactId>core</artifactId>
 </dependency>
 <dependency>
     <groupId>com.jwebmp.plugins</groupId>

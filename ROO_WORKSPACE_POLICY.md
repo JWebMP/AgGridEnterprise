@@ -372,7 +372,7 @@ mvn clean install
 
 <dependency>
     <groupId>cloud.piranha.guides.jwebmp</groupId>
-    <artifactId>jwebmp-core</artifactId>
+    <artifactId>core</artifactId>
     <version>CURRENT</version>  <!-- Base framework -->
 </dependency>
 ```
