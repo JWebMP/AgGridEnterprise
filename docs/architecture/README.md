@@ -42,11 +42,9 @@ See **[erd-enterprise-options.md](erd-enterprise-options.md)** — Options class
 
 ## References
 
-- **[../../../PACT.md](../../../PACT.md)** — Product architecture and contract
-- **[../../../RULES.md](../../../RULES.md)** — Project rules and stacks
-- **[../../../GLOSSARY.md](../../../GLOSSARY.md)** — Terminology and component names
-- **[../../../GUIDES.md](../../../GUIDES.md)** — How to apply rules and patterns
-- **[../../../IMPLEMENTATION.md](../../../IMPLEMENTATION.md)** — Module structure and code layout
+- **[AG Grid Enterprise Documentation](https://www.ag-grid.com/documentation/)** — Official AG Grid Enterprise documentation
+- **[JWebMP Home](https://jwebmp.com/)** — JWebMP framework documentation
+- **[Source Code](../../src/main/java/)** — Current implementation
 
 ## Mermaid MCP Integration
 
