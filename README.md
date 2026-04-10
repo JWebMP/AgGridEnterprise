@@ -16,7 +16,7 @@
 
 Enterprise data grid extension for JWebMP adding advanced features to AG Grid. Extends the community AG Grid plugin with integrated charts, row grouping, server-side row model, pivot tables, range selection, and Excel export.
 
-Built on [AG Grid Enterprise 35.0.0](https://www.ag-grid.com/) · [Angular 20](https://angular.dev/) · [JWebMP AG Grid](../aggrid/) · JPMS module `com.jwebmp.plugins.aggridenterprise` · Java 25+
+Built on [AG Grid Enterprise 35.0.0](https://www.ag-grid.com/) · [Angular 21](https://angular.dev/) · [JWebMP AG Grid](../aggrid/) · JPMS module `com.jwebmp.plugins.aggridenterprise` · Java 25+
 
 **Version: 35.0.0** — Complete AG Grid Enterprise API with CRTP fluent builders and modular architecture.
 
@@ -26,7 +26,7 @@ Built on [AG Grid Enterprise 35.0.0](https://www.ag-grid.com/) · [Angular 20](h
 <dependency>
   <groupId>com.jwebmp.plugins</groupId>
   <artifactId>aggrid-enterprise</artifactId>
-  <version>2.0.0-SNAPSHOT</version>
+  <version>2.0.0-RC1</version>
 </dependency>
 ```
 
@@ -34,7 +34,7 @@ Built on [AG Grid Enterprise 35.0.0](https://www.ag-grid.com/) · [Angular 20](h
 <summary>Gradle (Kotlin DSL)</summary>
 
 ```kotlin
-implementation("com.jwebmp.plugins:aggrid-enterprise:2.0.0-SNAPSHOT")
+implementation("com.jwebmp.plugins:aggrid-enterprise:2.0.0-RC1")
 ```
 </details>
 
@@ -94,7 +94,7 @@ The plugin automatically includes AG Grid Enterprise dependencies:
 - **Type-Safe Fluent API** — CRTP pattern for compile-time safe method chaining
 - **Modular Architecture** — 8 focused feature modules with @JsonUnwrapped pattern
 - **Strongly-Typed Options** — Enums and POJOs replace raw Object/Map types
-- **Angular 20 Integration** — Auto-generated Angular components with change detection
+- **Angular 21 Integration** — Auto-generated Angular components with change detection
 - **AllEnterpriseModule** — Auto-registered via PageConfigurator boot constructor
 - **100% JSON Compatible** — Backward compatible JSON serialization
 - **License Management** — Static configuration or environment variable support
@@ -468,4 +468,4 @@ com.jwebmp.plugins.aggridenterprise
 
 **JWebMP AG Grid Enterprise** — Enterprise data grid features for Java applications.
 
-Built with ❤️ using Java 25+, AG Grid Enterprise 35.0.0, AG Charts Enterprise 13.0.0, Angular 20, and JPMS.
+Built with ❤️ using Java 25+, AG Grid Enterprise 35.0.0, AG Charts Enterprise 13.0.0, Angular 21, and JPMS.
