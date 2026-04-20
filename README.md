@@ -26,7 +26,7 @@ Built on [AG Grid Enterprise 35.0.0](https://www.ag-grid.com/) · [Angular 21](h
 <dependency>
   <groupId>com.jwebmp.plugins</groupId>
   <artifactId>aggrid-enterprise</artifactId>
-  <version>2.0.0-RC7</version>
+  <version>2.0.0-RC8</version>
 </dependency>
 ```
 
@@ -34,7 +34,7 @@ Built on [AG Grid Enterprise 35.0.0](https://www.ag-grid.com/) · [Angular 21](h
 <summary>Gradle (Kotlin DSL)</summary>
 
 ```kotlin
-implementation("com.jwebmp.plugins:aggrid-enterprise:2.0.0-RC7")
+implementation("com.jwebmp.plugins:aggrid-enterprise:2.0.0-RC8")
 ```
 </details>
 
