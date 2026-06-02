@@ -26,7 +26,7 @@ Built on [AG Grid Enterprise 35.0.0](https://www.ag-grid.com/) · [Angular 21](h
 <dependency>
   <groupId>com.jwebmp.plugins</groupId>
   <artifactId>aggrid-enterprise</artifactId>
-  <version>2.0.0-SNAPSHOT</version>
+  <version>2.0.3-SNAPSHOT</version>
 </dependency>
 ```
 
