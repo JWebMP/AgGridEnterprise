@@ -21,7 +21,6 @@ import org.jspecify.annotations.Nullable;
 /**
  * Enterprise-only options layered on top of community AgGridOptions
  */
-@SuppressWarnings("unchecked")
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = JsonAutoDetect.Visibility.NONE, setterVisibility = JsonAutoDetect.Visibility.NONE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AgGridEnterpriseOptions<J extends AgGridEnterpriseOptions<J>> extends AgGridOptions<J>
